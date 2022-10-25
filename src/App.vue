@@ -3,6 +3,7 @@
     <SiteNavigation />
     <RouterView />
   </div>
+  <div>Search city</div>
 </template>
 
 <script setup lang="ts">
