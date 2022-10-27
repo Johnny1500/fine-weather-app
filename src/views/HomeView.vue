@@ -1,14 +1,16 @@
 <template>
   <div class="container mt-[100px]">
     <div
-      class="bg-weather-secondary w-3/4"      
+      class="bg-weather-primary flex flex-col justify-center items-start rounded-lg"
+      :class="{ 'city-search-block': selectedGeoDBCities.length > 0 }"
     >
-      <div class="input-wrapper flex justify-center items-center">
+      <div class="input-wrapper w-full">
         <input
           type="text"
           placeholder="Search for city"
           v-model="cityInput"
-          class="w-full flex-1 text-xl -ml-4 px-9 py-2 rounded-full"
+          class="w-full text-xl -ml-4 px-9 py-2 rounded-full"
+          :class="{ 'input-active': selectedGeoDBCities.length > 0 }"
         />
       </div>
       <div id="selected-cities-array" v-show="selectedGeoDBCities.length > 0">
@@ -48,6 +50,11 @@ async function searchFromGeoDB(newCityInput: string) {
   try {
     console.log("newCityInput", newCityInput);
 
+    if (newCityInput.length === 0) {
+      selectedGeoDBCities.value = [];
+      return;
+    }
+
     loadingCities.value = true;
 
     const response = await fetch(
@@ -74,11 +81,19 @@ watch(cityInput, (...args) => searchFromGeoDBDebounced(...args));
 </script>
 
 <style lang="scss" scoped>
+.city-search-block {
+  background-color: #fff;
+}
+
 .input-wrapper::before {
   font-family: "FontAwesome";
   position: relative;
   left: 12px;
   content: "\f002";
   z-index: 1;
+}
+
+.input-active {  
+  outline: none;
 }
 </style>
