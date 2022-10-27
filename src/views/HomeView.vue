@@ -1,11 +1,11 @@
 <template>
   <div class="container mt-[100px]">
-    <div class="wrapper">
+    <div class="wrapper flex justify-center items-center">
       <input
         type="text"
         placeholder="Search for city"
         v-model="cityInput"
-        class="w-full md:w-3/4 text-xl px-3 py-2 rounded-full"
+        class="w-3/4 text-xl px-9 py-2 rounded-full"
       />
     </div>
     <div id="selected-cities-array" v-show="selectedGeoDBCities.length > 0">
@@ -70,6 +70,11 @@ watch(cityInput, (...args) => searchFromGeoDBDebounced(...args));
 </script>
 
 <style lang="scss" scoped>
- 
- 
+.wrapper::before {
+  font-family: "FontAwesome"; 
+  position: relative;
+  left: 30px;
+  content: "\f002";
+  z-index: 1;
+}
 </style>
