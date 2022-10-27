@@ -1,24 +1,28 @@
 <template>
   <div class="container mt-[100px]">
-    <div class="wrapper flex justify-center items-center">
-      <input
-        type="text"
-        placeholder="Search for city"
-        v-model="cityInput"
-        class="w-3/4 text-xl px-9 py-2 rounded-full"
-      />
-    </div>
-    <div id="selected-cities-array" v-show="selectedGeoDBCities.length > 0">
-      <ul v-if="!loadingCities">
-        <li
-          v-for="item in selectedGeoDBCities"
-          :key="item['id']"
-          class="selected-city"
-        >
-          {{ item["name"] }}
-        </li>
-      </ul>
-      <div v-else>Loading...</div>
+    <div
+      class="bg-weather-secondary w-3/4"      
+    >
+      <div class="input-wrapper flex justify-center items-center">
+        <input
+          type="text"
+          placeholder="Search for city"
+          v-model="cityInput"
+          class="w-full flex-1 text-xl -ml-4 px-9 py-2 rounded-full"
+        />
+      </div>
+      <div id="selected-cities-array" v-show="selectedGeoDBCities.length > 0">
+        <ul v-if="!loadingCities">
+          <li
+            v-for="item in selectedGeoDBCities"
+            :key="item['id']"
+            class="selected-city"
+          >
+            {{ item["name"] }}
+          </li>
+        </ul>
+        <div v-else>Loading...</div>
+      </div>
     </div>
   </div>
 </template>
@@ -70,10 +74,10 @@ watch(cityInput, (...args) => searchFromGeoDBDebounced(...args));
 </script>
 
 <style lang="scss" scoped>
-.wrapper::before {
-  font-family: "FontAwesome"; 
+.input-wrapper::before {
+  font-family: "FontAwesome";
   position: relative;
-  left: 30px;
+  left: 12px;
   content: "\f002";
   z-index: 1;
 }
