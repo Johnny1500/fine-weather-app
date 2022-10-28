@@ -1,24 +1,30 @@
 <template>
   <div class="container mt-[100px]">
     <div
-      class="bg-weather-primary flex flex-col justify-center items-start rounded-lg"
-      :class="{ 'city-search-block': selectedGeoDBCities.length > 0 }"
+      class="bg-weather-primary flex flex-col justify-center items-start rounded-xl"
+      :class="`${
+        selectedGeoDBCities.length > 0
+          ? 'bg-weather-secondary'
+          : 'bg-weather-primary'
+      }`"
     >
       <div class="input-wrapper w-full">
         <input
           type="text"
           placeholder="Search for city"
           v-model="cityInput"
-          class="w-full text-xl -ml-4 px-9 py-2 rounded-full"
-          :class="{ 'input-active': selectedGeoDBCities.length > 0 }"
+          class="w-full text-xl -ml-4 px-10 py-2 rounded-full"
+          :class="`${
+            selectedGeoDBCities.length > 0 ? 'outline-none' : 'outline-1'
+          }`"
         />
       </div>
-      <div id="selected-cities-array" v-show="selectedGeoDBCities.length > 0">
+      <div v-show="selectedGeoDBCities.length > 0">
         <ul v-if="!loadingCities">
           <li
             v-for="item in selectedGeoDBCities"
             :key="item['id']"
-            class="selected-city"
+            class="py-2 px-4"
           >
             {{ item["name"] }}
           </li>
@@ -81,19 +87,11 @@ watch(cityInput, (...args) => searchFromGeoDBDebounced(...args));
 </script>
 
 <style lang="scss" scoped>
-.city-search-block {
-  background-color: #fff;
-}
-
 .input-wrapper::before {
   font-family: "FontAwesome";
   position: relative;
-  left: 12px;
+  left: 14px;
   content: "\f002";
   z-index: 1;
-}
-
-.input-active {  
-  outline: none;
 }
 </style>
