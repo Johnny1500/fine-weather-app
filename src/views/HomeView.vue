@@ -14,7 +14,11 @@
           class="w-full text-xl -ml-4 px-10 py-2 rounded-full outline-none"
         />
       </div>
-      <div v-show="cityInput.length > 0" class="w-full">
+      <div
+        v-show="cityInput.length > 0"
+        id="selected-cities-array"
+        class="w-full"
+      >
         <ul v-if="!loadingCities">
           <li
             v-for="item in selectedGeoDBCities"
@@ -24,7 +28,7 @@
             {{ item["name"] }}
           </li>
         </ul>
-        <div v-else class="flex items-center justify-center pb-3">          
+        <div v-else class="flex items-center justify-center pb-3">
           <svg
             class="animate-spin -ml-1 mr-3 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +49,7 @@
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             ></path>
           </svg>
-          <p class="text-xl">Loading...</p>          
+          <p class="text-xl">Loading...</p>
         </div>
       </div>
     </div>
@@ -53,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { geoOptions, GEO_API_URL } from "../api";
 let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
@@ -77,9 +81,7 @@ async function searchFromGeoDB(newCityInput: string) {
       selectedGeoDBCities.value = [];
       return;
     }
-
-    // loadingCities.value = true;
-
+    
     const response = await fetch(
       `${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${newCityInput}`,
       geoOptions
@@ -96,6 +98,15 @@ async function searchFromGeoDB(newCityInput: string) {
   }
 }
 
+function handleClickOutside(event: MouseEvent) {
+  const elem = event.target as HTMLElement;
+
+  if (elem.tagName !== "LI") {
+    cityInput.value = "";
+    selectedGeoDBCities.value = [];
+  }
+}
+
 const searchFromGeoDBDebounced = debounce(searchFromGeoDB, 1200);
 
 watch(cityInput, (...args) => {
@@ -103,6 +114,14 @@ watch(cityInput, (...args) => {
   // eslint-disable-next-line
   // @ts-ignore
   return searchFromGeoDBDebounced(...args);
+});
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
 });
 </script>
 
