@@ -3,7 +3,7 @@
     <div
       class="bg-weather-primary flex flex-col justify-center items-start rounded-xl"
       :class="`${
-        selectedGeoDBCities.length > 0
+        cityInput.length > 0
           ? 'bg-weather-secondary'
           : 'bg-weather-primary'
       }`"
@@ -15,11 +15,11 @@
           v-model="cityInput"
           class="w-full text-xl -ml-4 px-10 py-2 rounded-full"
           :class="`${
-            selectedGeoDBCities.length > 0 ? 'outline-none' : 'outline-1'
+            cityInput.length > 0 ? 'outline-none' : 'outline-1'
           }`"
         />
       </div>
-      <div v-show="selectedGeoDBCities.length > 0">
+      <div v-show="cityInput.length > 0">
         <ul v-if="!loadingCities">
           <li
             v-for="item in selectedGeoDBCities"
@@ -61,7 +61,7 @@ async function searchFromGeoDB(newCityInput: string) {
       return;
     }
 
-    loadingCities.value = true;
+    // loadingCities.value = true;
 
     const response = await fetch(
       `${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${newCityInput}`,
@@ -81,9 +81,12 @@ async function searchFromGeoDB(newCityInput: string) {
 
 const searchFromGeoDBDebounced = debounce(searchFromGeoDB, 1200);
 
-// eslint-disable-next-line
-// @ts-ignore
-watch(cityInput, (...args) => searchFromGeoDBDebounced(...args));
+
+watch(cityInput, (...args) => {
+  loadingCities.value = true;
+  // eslint-disable-next-line
+  // @ts-ignore
+  return searchFromGeoDBDebounced(...args)});
 </script>
 
 <style lang="scss" scoped>
