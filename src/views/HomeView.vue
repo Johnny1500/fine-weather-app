@@ -19,15 +19,20 @@
         id="selected-cities-array"
         class="w-full"
       >
-        <ul v-if="!loadingCities">
-          <li
-            v-for="item in selectedGeoDBCities"
-            :key="item['id']"
-            class="py-2 px-4"
-          >
-            {{ item["name"] }}
-          </li>
-        </ul>
+        <div v-if="!loadingCities">
+          <ul v-if="selectedGeoDBCities.length > 0">
+            <li
+              v-for="item in selectedGeoDBCities"
+              :key="item['id']"
+              class="py-2 px-4"
+            >
+              {{ item["name"] }}
+            </li>
+          </ul>
+          <div v-else>
+            <p>There is no such city. Try again.</p>
+          </div>
+        </div>
         <div v-else class="flex items-center justify-center pb-3">
           <svg
             class="animate-spin -ml-1 mr-3 h-5 w-5"
@@ -81,7 +86,7 @@ async function searchFromGeoDB(newCityInput: string) {
       selectedGeoDBCities.value = [];
       return;
     }
-    
+
     const response = await fetch(
       `${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${newCityInput}`,
       geoOptions
