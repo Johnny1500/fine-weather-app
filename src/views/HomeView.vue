@@ -29,8 +29,8 @@
               {{ item["name"] }}
             </li>
           </ul>
-          <div v-else>
-            <p>There is no such city. Try again.</p>
+          <div v-else class="flex items-center justify-center pb-3">
+            <p class="text-xl">There is no such city. Try again.</p>
           </div>
         </div>
         <div v-else class="flex items-center justify-center pb-3">
@@ -64,19 +64,11 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import { geoOptions, GEO_API_URL } from "../api";
+import { debounce } from "../utility";
+
 let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
 let loadingCities = ref(false);
-
-function debounce(func: any, ms: number) {
-  let timeout: number;
-  return function () {
-    clearTimeout(timeout);
-    // eslint-disable-next-line
-    // @ts-ignore
-    timeout = setTimeout(() => func.apply(this, arguments), ms);
-  };
-}
 
 async function searchFromGeoDB(newCityInput: string) {
   try {
