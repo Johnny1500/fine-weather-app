@@ -7,7 +7,6 @@
 
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import SearchCity from "./components/SearchCity.vue";
 import SiteNavigation from "./components/SiteNavigation.vue";
 </script>
 

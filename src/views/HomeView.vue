@@ -32,6 +32,12 @@
           <div v-else class="flex items-center justify-center pb-3">
             <p class="text-xl">There is no such city. Try again.</p>
           </div>
+          <div
+            v-if="errorResponse"
+            class="flex items-center justify-center pb-3"
+          >
+            <p class="text-xl">Error during fetch cities. Try again</p>
+          </div>
         </div>
         <div v-else class="flex items-center justify-center pb-3">
           <svg
@@ -69,6 +75,7 @@ import { debounce } from "../utility";
 let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
 let loadingCities = ref(false);
+let errorResponse = ref(false);
 
 async function searchFromGeoDB(newCityInput: string) {
   try {
@@ -91,6 +98,9 @@ async function searchFromGeoDB(newCityInput: string) {
 
     loadingCities.value = false;
   } catch (error) {
+    loadingCities.value = false;
+    errorResponse.value = true;
+
     console.log("error during fetch cities", error);
   }
 }
@@ -108,6 +118,7 @@ const searchFromGeoDBDebounced = debounce(searchFromGeoDB, 1200);
 
 watch(cityInput, (...args) => {
   loadingCities.value = true;
+  errorResponse.value = false;
   // eslint-disable-next-line
   // @ts-ignore
   return searchFromGeoDBDebounced(...args);
