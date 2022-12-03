@@ -30,13 +30,10 @@
             </li>
           </ul>
           <div v-else class="flex items-center justify-center pb-3">
-            <p class="text-xl">There is no such city. Try again.</p>
-          </div>
-          <div
-            v-if="errorResponse"
-            class="flex items-center justify-center pb-3"
-          >
-            <p class="text-xl">Error during fetch cities. Try again</p>
+            <p v-if="errorResponse" class="text-xl">
+              Error during fetch cities. Try again
+            </p>
+            <p v-else class="text-xl">There is no such city. Try again.</p>
           </div>
         </div>
         <div v-else class="flex items-center justify-center pb-3">
@@ -91,17 +88,27 @@ async function searchFromGeoDB(newCityInput: string) {
       geoOptions
     );
 
+    if (!response.ok) {
+      loadingCities.value = false;
+      errorResponse.value = true;
+      console.log("errorResponse.value", errorResponse.value);
+      return;
+    }
+
     const cities = await response.json();
     console.log("cities", cities);
 
     selectedGeoDBCities.value = cities.data;
 
+    errorResponse.value = false;
     loadingCities.value = false;
+
+    console.log("errorResponse.value", errorResponse.value);
   } catch (error) {
+    console.log("error during fetch cities", error);
+
     loadingCities.value = false;
     errorResponse.value = true;
-
-    console.log("error during fetch cities", error);
   }
 }
 
