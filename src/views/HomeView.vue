@@ -24,7 +24,8 @@
             <li
               v-for="item in selectedGeoDBCities"
               :key="item['id']"
-              class="py-2 px-4"
+              class="py-2 px-4 cursor-pointer"
+              @click="handleCityClick(item['city'])"
             >
               {{ item["name"] }}
             </li>
@@ -68,6 +69,7 @@
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import { geoOptions, GEO_API_URL } from "../api";
 import { debounce } from "../utility";
+import router from "../router"; 
 
 let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
@@ -91,7 +93,7 @@ async function searchFromGeoDB(newCityInput: string) {
     if (!response.ok) {
       loadingCities.value = false;
       errorResponse.value = true;
-      console.log("errorResponse.value", errorResponse.value);
+    
       return;
     }
 
@@ -102,14 +104,20 @@ async function searchFromGeoDB(newCityInput: string) {
 
     errorResponse.value = false;
     loadingCities.value = false;
-
-    console.log("errorResponse.value", errorResponse.value);
+    
   } catch (error) {
-    console.log("error during fetch cities", error);
-
+    
     loadingCities.value = false;
     errorResponse.value = true;
   }
+}
+
+function handleCityClick(cityname: string) {
+ 
+  console.log('cityname', cityname);
+
+  router.push(`/city/${cityname}`)
+
 }
 
 function handleClickOutside(event: MouseEvent) {
