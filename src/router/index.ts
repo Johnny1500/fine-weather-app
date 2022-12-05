@@ -11,9 +11,9 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/city/:cityname",
+      path: "/city/:cityname/:lat/:lon",
       name: "city",
-      component: CityView,
+      component: CityView
     },
   ],
 });
