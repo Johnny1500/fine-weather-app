@@ -1,3 +1,9 @@
+/**
+ * Debounce function
+ * @param func initial function
+ * @param ms duration
+ * @returns debounced function
+ */
 export const debounce = function (func: any, ms: number) {
   let timeout: number;
   return function () {

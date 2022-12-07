@@ -27,9 +27,7 @@
               class="py-2 px-4 cursor-pointer"
               @click="
                 handleCityClick(
-                  item['city'],
-                  item['latitude'],
-                  item['longitude']
+                  item
                 )
               "
             >
@@ -75,7 +73,9 @@
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import { geoOptions, GEO_API_URL } from "../api";
 import { debounce } from "../utility";
-import router from "../router";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
@@ -116,8 +116,19 @@ async function searchFromGeoDB(newCityInput: string) {
   }
 }
 
-function handleCityClick(cityname: string, lat: number, lon: number) {
-  router.push(`/city/${cityname}/${lat}/${lon}`);
+function handleCityClick(cityObj: any) {
+
+  const {city, latitude, longitude} = cityObj;
+
+  router.push({
+    path: `city/${city}`,
+    query: {
+      lat: latitude,
+      lon: longitude
+    }
+  })
+
+
 }
 
 function handleClickOutside(event: MouseEvent) {
