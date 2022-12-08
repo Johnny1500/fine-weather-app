@@ -84,7 +84,7 @@ let errorResponse = ref(false);
 
 async function searchFromGeoDB(newCityInput: string) {
   try {
-    console.log("newCityInput", newCityInput);
+    // console.log("newCityInput", newCityInput);
 
     if (newCityInput.length === 0) {
       selectedGeoDBCities.value = [];
@@ -104,7 +104,7 @@ async function searchFromGeoDB(newCityInput: string) {
     }
 
     const cities = await response.json();
-    console.log("cities", cities);
+    // console.log("cities", cities);
 
     selectedGeoDBCities.value = cities.data;
 
