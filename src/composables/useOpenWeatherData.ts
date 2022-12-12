@@ -1,5 +1,4 @@
 import { OPEN_WEATHER_API_URL, OPEN_WEATHER_API_KEY } from "../api";
-import { ref, onMounted } from "vue";
 import type { LocationQueryValue } from "vue-router";
 
 export default async function useOpenWeatherData(

@@ -42,53 +42,6 @@ onMounted(async () => {
   loadingWeatherData.value = false;
 });
 
-// const currentWeatherData = useOpenWeatherData(lat, lon, "weather");
-
-// console.log('currentWeatherData ===', currentWeatherData);
-
-// const getCurrentWeatherData = async () => {
-//   try {
-//     const response = await fetch(
-//       `${OPEN_WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}`
-//     );
-//     const currentWeatherData = await response.json();
-
-//     console.log(
-//       "currentWeatherData",
-//       JSON.stringify(currentWeatherData, null, 2)
-//     );
-
-//     console.dir(currentWeatherData);
-
-//     return currentWeatherData;
-//   } catch (error) {
-//     console.log("error during fetch", error);
-//   }
-// };
-
-// const getForecastWeatherData = async () => {
-//   try {
-//     const response = await fetch(
-//       `${OPEN_WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}`
-//     );
-
-//     const forecastWeatherData = await response.json();
-
-//     console.log(
-//       "forecastWeatherData",
-//       JSON.stringify(forecastWeatherData, null, 2)
-//     );
-
-//     console.dir(forecastWeatherData);
-//   } catch (error) {
-//     console.log("error during fetch", error);
-//   }
-// };
-
-// onMounted(async () => {
-//   await getCurrentWeatherData();
-//   await getForecastWeatherData();
-// });
 </script>
 
 <style lang="scss" scoped></style>
