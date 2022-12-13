@@ -3,6 +3,17 @@ export interface Coord {
     lat: number;
 }
 
+export interface City {
+    id: number;
+    name: string;
+    coord: Coord;
+    country: string;
+    population: number;
+    timezone: number;
+    sunrise: number;
+    sunset: number;
+}
+
 export interface Weather {
     id: number;
     main: string;
@@ -20,14 +31,14 @@ export interface MainParams {
     grnd_level: number;
 }
 
+export interface ForecastMainParams extends MainParams {
+    temp_kf: number;
+}
+
 export interface Wind {
     speed: number;
     deg: number;
     gust: number;
-}
-
-export interface Rain {
-    "1h": number;
 }
 
 export interface Clouds {
@@ -42,19 +53,34 @@ export interface Sys {
     sunset: number
 }
 
-export interface WeatherData {
-    coord: Coord;
+export interface WeatherData {    
     weather: Weather[];
-    base: string;
-    main: MainParams;
+    base: string;   
     visibility: number;
     wind: Wind;
-    rain: Rain;
+    rain: any;
     clouds: Clouds;
     dt: number;
-    sys: Sys;
-    timezone: number;
+    sys: Sys;    
     id: number;
-    name: string;
+    name: string;    
+}
+
+export interface CurrentWeatherData extends WeatherData {
+    coord: Coord;
     cod: number;
+    main: MainParams;
+    timezone: number;
+}
+
+export interface ForecastListWeatherData extends WeatherData {
+    dt_txt: string
+}
+
+export interface ForecastWeatherData {
+    cod: number;
+    message: number;
+    cnt: number;
+    list: ForecastListWeatherData[];
+    city: City
 }
