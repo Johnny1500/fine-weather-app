@@ -14,12 +14,6 @@ export interface City {
     sunset: number;
 }
 
-export interface Weather {
-    id: number;
-    main: string;
-    description: string;    
-}
-
 export interface MainParams {
     temp: number;
     feels_like: number;
@@ -54,7 +48,7 @@ export interface Sys {
 }
 
 export interface WeatherData {    
-    weather: Weather[];
+    weather: any;
     base: string;   
     visibility: number;
     wind: Wind;
