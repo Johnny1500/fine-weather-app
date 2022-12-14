@@ -65,6 +65,7 @@ export interface CurrentWeatherData extends WeatherData {
     cod: number;
     main: MainParams;
     timezone: number;
+    remoteTime?: number | Date;
 }
 
 export interface ForecastListWeatherData extends WeatherData {
