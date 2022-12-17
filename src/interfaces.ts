@@ -68,7 +68,7 @@ export interface CurrentWeatherData extends WeatherData {
     remoteTime?: number | Date;
 }
 
-export interface ForecastListWeatherData extends WeatherData {
+export interface ForecastItemWeatherData extends WeatherData {
     dt_txt: string
 }
 
@@ -76,6 +76,22 @@ export interface ForecastWeatherData {
     cod: number;
     message: number;
     cnt: number;
-    list: ForecastListWeatherData[];
+    list: ForecastItemWeatherData[];
     city: City
+}
+
+export interface ForecastItemWeatherDataForRender {
+    date: string;
+    time: string;
+    weather_description: string;
+    temp: number;
+    picture: string;
+}
+
+export interface CurrentWeatherDataForRender extends ForecastItemWeatherDataForRender {
+    feels_like: number;
+    pressure: number;
+    humidity: number;
+    wind_speed: number;
+    wind_deg: number
 }
