@@ -93,5 +93,5 @@ export interface CurrentWeatherDataForRender extends ForecastItemWeatherDataForR
     pressure: number;
     humidity: number;
     wind_speed: number;
-    wind_deg: number
+    wind_direction: number
 }
