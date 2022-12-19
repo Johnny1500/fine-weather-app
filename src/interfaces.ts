@@ -87,10 +87,12 @@ export interface ForecastItemWeatherDataForRender {
     picture: string;
 }
 
+export type WindDirection = 'N'|'N-E'|'E'|'S-E'|'S'|'S-W'|'W'|'N-W';
+
 export interface CurrentWeatherDataForRender extends ForecastItemWeatherDataForRender {
     feels_like: number;
     pressure: number;
     humidity: number;
     wind_speed: number;
-    wind_direction: string
+    wind_direction: WindDirection
 }

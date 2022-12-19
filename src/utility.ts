@@ -1,3 +1,5 @@
+import type { WindDirection } from "./interfaces";
+
 /**
  * Debounce function
  * @callback func initial function
@@ -51,10 +53,10 @@ export const dateAndTimeForRemote = function (
 
 /**
  * Transform degrees to wind direction
- * @param {number} deg wind direction in degrees 
- * @returns {string} wind direction
+ * @param {number} deg wind direction in degrees
+ * @returns {WindDirection} wind direction
  */
-export const degreesToWindDirection = function(deg: number): string {
+export const degreesToWindDirection = function (deg: number): WindDirection {
   switch (true) {
     case deg > 314:
       return "N-W";
@@ -68,7 +70,9 @@ export const degreesToWindDirection = function(deg: number): string {
       return "S-E";
     case deg > 89:
       return "E";
+    case deg > 44:
+      return "N-E";
     default:
       return "N";
   }
-}
+};
