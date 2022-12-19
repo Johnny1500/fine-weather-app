@@ -48,6 +48,7 @@ export interface Sys {
 }
 
 export interface WeatherData {    
+    main: MainParams;
     weather: any;
     base: string;   
     visibility: number;
@@ -62,10 +63,8 @@ export interface WeatherData {
 
 export interface CurrentWeatherData extends WeatherData {
     coord: Coord;
-    cod: number;
-    main: MainParams;
-    timezone: number;
-    remoteTime?: number | Date;
+    cod: number;    
+    timezone: number;   
 }
 
 export interface ForecastItemWeatherData extends WeatherData {
@@ -80,16 +79,21 @@ export interface ForecastWeatherData {
     city: City
 }
 
-export interface ForecastItemWeatherDataForRender {
-    date: string[];   
+export interface WeatherDataForRender {
+    dateArr: string[];      
     weather_description: string;
     temp: number;
     picture: string;
 }
 
+export interface ForecastItemWeatherDataForRender extends WeatherDataForRender{
+    dt: number;
+    date: string;
+}
+
 export type WindDirection = 'N'|'N-E'|'E'|'S-E'|'S'|'S-W'|'W'|'N-W';
 
-export interface CurrentWeatherDataForRender extends ForecastItemWeatherDataForRender {
+export interface CurrentWeatherDataForRender extends WeatherDataForRender {
     feels_like: number;
     pressure: number;
     humidity: number;
