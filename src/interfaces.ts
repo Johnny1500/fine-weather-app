@@ -81,8 +81,7 @@ export interface ForecastWeatherData {
 }
 
 export interface ForecastItemWeatherDataForRender {
-    date: string;
-    time: string;
+    date: string[];   
     weather_description: string;
     temp: number;
     picture: string;
@@ -93,5 +92,5 @@ export interface CurrentWeatherDataForRender extends ForecastItemWeatherDataForR
     pressure: number;
     humidity: number;
     wind_speed: number;
-    wind_direction: number
+    wind_direction: string
 }

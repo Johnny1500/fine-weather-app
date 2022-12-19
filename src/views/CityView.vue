@@ -1,10 +1,7 @@
 <template>
   <div>
     <div v-if="!loadingWeatherData">
-      <p>{{ currentWeatherData?.name }}</p>
-      <p>{{ currentWeatherData?.id }}</p>
-      <p>{{ currentWeatherData?.dt }}</p>
-      <p>{{ currentWeatherData?.remoteTime }}</p>
+      <p class="text-xl">Current weather</p>
     </div>
     <div v-else>
       <p class="text-xl">Loading...</p>
@@ -14,12 +11,17 @@
 
 <script lang="ts" setup>
 import type { Ref } from "vue";
-import type { CurrentWeatherData, ForecastWeatherData } from "../interfaces";
+import type {
+  CurrentWeatherData,
+  CurrentWeatherDataForRender,
+  ForecastWeatherData,
+  ForecastItemWeatherDataForRender,
+} from "../interfaces";
 
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import useOpenWeatherData from "@/composables/useOpenWeatherData";
-import { timeForRemote } from "../utility";
+import { dateAndTimeForRemote, degreesToWindDirection } from "../utility";
 
 const route = useRoute();
 
@@ -27,33 +29,47 @@ const lat = route.query.lat;
 const lon = route.query.lon;
 
 let loadingWeatherData = ref(false);
-let currentWeatherData: Ref<CurrentWeatherData | null> = ref(null);
-let forecastWeatherData: Ref<ForecastWeatherData | null> = ref(null);
-
-console.log("lat ===", lat);
-console.log("lon ===", lon);
+let currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
+  ref(null);
+let forecastWeatherDataForRender: Ref<
+  ForecastItemWeatherDataForRender[] | null
+> = ref(null);
 
 onMounted(async () => {
   loadingWeatherData.value = true;
 
-  currentWeatherData.value = await useOpenWeatherData<CurrentWeatherData>(
+  const currentWeatherData = await useOpenWeatherData<CurrentWeatherData>(
     lat,
     lon,
     "weather"
   );
-  forecastWeatherData.value = await useOpenWeatherData<ForecastWeatherData>(
+  const forecastWeatherData = await useOpenWeatherData<ForecastWeatherData>(
     lat,
     lon,
     "forecast"
   );
-  
-  currentWeatherData.value.remoteTime = timeForRemote(
-    currentWeatherData.value.dt,
-    currentWeatherData.value.timezone
-  );
 
-  console.log("currentWeatherData.value === ", currentWeatherData.value);
-  console.log("forecastWeatherData.value === ", forecastWeatherData.value);
+  currentWeatherDataForRender.value = {
+    date: dateAndTimeForRemote(
+      currentWeatherData.dt,
+      currentWeatherData.timezone
+    ),
+    weather_description: currentWeatherData.weather[0].description,
+    temp: currentWeatherData.main.temp,
+    feels_like: currentWeatherData.main.feels_like,
+    picture: currentWeatherData.weather[0].icon,
+    pressure: currentWeatherData.main.pressure,
+    humidity: currentWeatherData.main.pressure,
+    wind_speed: currentWeatherData.wind.speed,
+    wind_direction: degreesToWindDirection(currentWeatherData.wind.deg),
+  };
+  
+  console.log("currentWeatherData.value === ", currentWeatherData);
+  console.log("forecastWeatherData.value === ", forecastWeatherData);
+  console.log(
+    "currentWeatherDataForRender.value === ",
+    currentWeatherDataForRender.value
+  );
 
   loadingWeatherData.value = false;
 });

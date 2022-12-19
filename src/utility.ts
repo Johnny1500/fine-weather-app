@@ -2,7 +2,7 @@
  * Debounce function
  * @callback func initial function
  * @param {number} ms duration
- * @returns debounced function
+ * @returns {function():void} debounced function
  */
 export const debounce = function (func: any, ms: number) {
   let timeout: number;
@@ -18,11 +18,57 @@ export const debounce = function (func: any, ms: number) {
  * Calc remote time
  * @param {number} dt open weather date time
  * @param {number} timezone remote timezone
- * @returns time for remote timezone
+ * @returns {Date} time for remote timezone
  */
-export const timeForRemote = function (dt: number, timezone: number): Date {
+export const dateAndTimeForRemote = function (
+  dt: number,
+  timezone: number
+): string[] {
   const localTimezoneOffset = new Date().getTimezoneOffset() * 60000;
   const utcTime = dt * 1000 + localTimezoneOffset;
 
-  return new Date(utcTime + timezone * 1000);
+  const remoteDateAndTime = new Date(utcTime + timezone * 1000).toLocaleString(
+    "en-US",
+    {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      hour12: false,
+      minute: "numeric",
+    }
+  );
+
+  const remoteDateAndTimeArr = remoteDateAndTime.split(", ");
+
+  const remoteDay = remoteDateAndTimeArr[0];
+  const remoteMounth = remoteDateAndTimeArr[1].split(" ")[0];
+  const remoteDate = remoteDateAndTimeArr[1].split(" ")[1];
+  const remoteTime = remoteDateAndTimeArr[2];
+
+  return [remoteDateAndTime, remoteDay, remoteMounth, remoteDate, remoteTime];
 };
+
+/**
+ * Transform degrees to wind direction
+ * @param {number} deg wind direction in degrees 
+ * @returns {string} wind direction
+ */
+export const degreesToWindDirection = function(deg: number): string {
+  switch (true) {
+    case deg > 314:
+      return "N-W";
+    case deg > 269:
+      return "W";
+    case deg > 224:
+      return "S-W";
+    case deg > 179:
+      return "S";
+    case deg > 134:
+      return "S-E";
+    case deg > 89:
+      return "E";
+    default:
+      return "N";
+  }
+}
