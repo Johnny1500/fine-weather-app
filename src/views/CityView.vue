@@ -2,6 +2,7 @@
   <div>
     <div v-if="!loadingWeatherData">
       <p class="text-xl">Current weather</p>
+      <p class="text-xl">{{ currentWeatherDataForRender?.feels_like  }}</p>
     </div>
     <div v-else>
       <p class="text-xl">Loading...</p>
@@ -11,8 +12,7 @@
 
 <script lang="ts" setup>
 import type { Ref } from "vue";
-import type {
-  CurrentWeatherData,
+import type {  
   CurrentWeatherDataForRender,
   ForecastWeatherData,
   ForecastItemWeatherData,
@@ -22,7 +22,8 @@ import type {
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import useOpenWeatherData from "@/composables/useOpenWeatherData";
-import { dateAndTimeForRemote, degreesToWindDirection } from "../utility";
+import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
+import { dateAndTimeForRemote } from "../utility";
 
 const route = useRoute();
 
@@ -37,33 +38,15 @@ let forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
 
 onMounted(async () => {
   loadingWeatherData.value = true;
-
-  const currentWeatherData = await useOpenWeatherData<CurrentWeatherData>(
-    lat,
-    lon,
-    "weather"
-  );
+ 
   const forecastWeatherData = await useOpenWeatherData<ForecastWeatherData>(
     lat,
     lon,
     "forecast"
   );
 
-  currentWeatherDataForRender.value = {
-    dateArr: dateAndTimeForRemote(
-      currentWeatherData.dt,
-      currentWeatherData.timezone
-    ),
-    weather_description: currentWeatherData.weather[0].description,
-    temp: currentWeatherData.main.temp,
-    feels_like: currentWeatherData.main.feels_like,
-    picture: currentWeatherData.weather[0].icon,
-    pressure: currentWeatherData.main.pressure,
-    humidity: currentWeatherData.main.humidity,
-    wind_speed: currentWeatherData.wind.speed,
-    wind_direction: degreesToWindDirection(currentWeatherData.wind.deg),
-  };
-
+  currentWeatherDataForRender.value = await useCurrentWeatherDataForRender(lat, lon);
+  
   const forecastWeatherDataTimezone = forecastWeatherData.city.timezone;
 
   const forecastWeatherDataForRenderArr = forecastWeatherData.list.map(
@@ -105,9 +88,7 @@ onMounted(async () => {
       forecastWeatherDataForRenderItemArr
     );
   });
-
-  console.log("currentWeatherData === ", currentWeatherData);
-  console.log("forecastWeatherData === ", forecastWeatherData);
+  
   console.log(
     "currentWeatherDataForRender.value === ",
     currentWeatherDataForRender.value
