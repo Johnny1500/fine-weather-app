@@ -18,7 +18,7 @@ export default async function useOpenWeatherData<T>(
     console.log("error during fetch", error);
   }
 
-  console.log("weatherData ===", weatherData);
+  // console.log("weatherData ===", weatherData);
 
   return weatherData;
 }

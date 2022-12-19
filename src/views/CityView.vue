@@ -13,17 +13,14 @@
 <script lang="ts" setup>
 import type { Ref } from "vue";
 import type {  
-  CurrentWeatherDataForRender,
-  ForecastWeatherData,
-  ForecastItemWeatherData,
+  CurrentWeatherDataForRender,  
   ForecastItemWeatherDataForRender,
 } from "../interfaces";
 
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
-import useOpenWeatherData from "@/composables/useOpenWeatherData";
 import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
-import { dateAndTimeForRemote } from "../utility";
+import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDataForRender";
 
 const route = useRoute();
 
@@ -38,66 +35,14 @@ let forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
 
 onMounted(async () => {
   loadingWeatherData.value = true;
- 
-  const forecastWeatherData = await useOpenWeatherData<ForecastWeatherData>(
-    lat,
-    lon,
-    "forecast"
-  );
-
+  
   currentWeatherDataForRender.value = await useCurrentWeatherDataForRender(lat, lon);
-  
-  const forecastWeatherDataTimezone = forecastWeatherData.city.timezone;
-
-  const forecastWeatherDataForRenderArr = forecastWeatherData.list.map(
-    (threeHourForecastItem: ForecastItemWeatherData) => {
-      const dateArr = dateAndTimeForRemote(
-        threeHourForecastItem.dt,
-        forecastWeatherDataTimezone
-      );
-
-      return {
-        dt: threeHourForecastItem.dt,
-        dateArr: dateArr,
-        date: dateArr[2] + "_" + dateArr[3],
-        weather_description: threeHourForecastItem.weather[0].description,
-        temp: threeHourForecastItem.main.temp,
-        picture: threeHourForecastItem.weather[0].icon,
-      };
-    }
-  );
-
-  const foreacastDates = new Set<string>();
-
-  forecastWeatherDataForRenderArr.forEach(
-    (threeHourForecastItemForRender: ForecastItemWeatherDataForRender) => {
-      foreacastDates.add(threeHourForecastItemForRender.date);
-    }
-  );
-
-  const foreacastDatesArr: string[] = Array.from(foreacastDates);
- 
-  foreacastDatesArr.forEach((forecastDate: string) => {
-    const forecastWeatherDataForRenderItemArr =
-      forecastWeatherDataForRenderArr.filter(
-        (threeHourForecastItemForRender: ForecastItemWeatherDataForRender) =>
-          threeHourForecastItemForRender.date === forecastDate
-      );
-
-    forecastWeatherDataForRender.value.push(
-      forecastWeatherDataForRenderItemArr
-    );
-  });
-  
+  forecastWeatherDataForRender.value = await useForecastWeatherDataForRender(lat, lon);  
+   
   console.log(
     "currentWeatherDataForRender.value === ",
     currentWeatherDataForRender.value
-  );
-  console.log(
-    "forecastWeatherDataForRenderArr === ",
-    forecastWeatherDataForRenderArr
-  );
-  console.log("foreacastDatesArr === ", foreacastDatesArr);  
+  );  
   console.log(
     "forecastWeatherDataForRender.value === ",
     forecastWeatherDataForRender.value
