@@ -1,22 +1,42 @@
 <template>
   <div>
     <div
-      class="border-4 border-dashed border-red-500 w-full mx-auto mt-10 p-2 md:w-3/4"
+      class="border-4 border-dashed border-red-500 mx-auto mt-10 p-2 md:w-3/4 lg:w-1/2"
     >
       <div v-if="!loadingWeatherData">
         <section class="border-4 border-dashed border-blue-500 rounded-lg p-2">
-          <h2 class="text-2xl">Current weather</h2>
+          <h2 class="text-2xl">
+            {{ currentWeatherDataForRender?.dateArr[0] }}
+          </h2>
           <div class="border-4 border-dashed border-purple-500 h-56 pt-2">
-            <p class="text-xl">{{ currentWeatherDataForRender?.feels_like }}</p>
+            <div class="flex flex-row items-center gap-4">
+              <p class="text-4xl">{{ currentWeatherDataForRender?.temp }}</p>
+              <img
+                :src="getImageUrl(currentWeatherDataForRender?.picture)"
+                alt="test"
+              />
+              <p class="text-xl">
+                Feels like {{ currentWeatherDataForRender?.feels_like }}
+              </p>
+            </div>
           </div>
         </section>
-        <section class="border-4 border-dashed border-green-500 rounded-lg mt-3 p-2">
+        <section
+          class="border-4 border-dashed border-green-500 rounded-lg mt-3 p-2"
+        >
           <h2 class="text-2xl">Forecast</h2>
-          <div class="border-4 border-dashed border-yellow-500 hidden md:block md:h-56 text-xl pt-2">
+          <div
+            class="border-4 border-dashed border-yellow-500 hidden md:block md:h-56 text-xl pt-2"
+          >
             Forecast weather
           </div>
-          <div class="border-4 border-dashed border-yellow-500 block md:hidden text-xl mt-2">
-            <p v-for="day in Array.from({ length:5 })" class="border-4 border-dashed border-orange-500 py-2">
+          <div
+            class="border-4 border-dashed border-yellow-500 block md:hidden text-xl mt-2"
+          >
+            <p
+              v-for="day in Array.from({ length: 5 })"
+              class="border-4 border-dashed border-orange-500 py-2"
+            >
               Forecast weather2
             </p>
           </div>
@@ -51,6 +71,12 @@ let currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
   ref(null);
 let forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
   ref([]);
+
+const getImageUrl = (picture: string | undefined) => {
+  if (picture)
+    return new URL(`../assets/weather-pictures/${picture}.png`, import.meta.url).href;
+  return new URL(`../assets/weather-pictures/unknown.png`, import.meta.url).href;
+};
 
 onMounted(async () => {
   loadingWeatherData.value = true;
