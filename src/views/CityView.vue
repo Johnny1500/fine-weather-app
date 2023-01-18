@@ -9,15 +9,21 @@
             {{ currentWeatherDataForRender?.dateArr[0] }}
           </h2>
           <div class="border-4 border-dashed border-purple-500 h-56 pt-2">
-            <div class="flex flex-row items-center gap-4">
-              <p class="text-4xl">{{ currentWeatherDataForRender?.temp }}</p>
+            <div class="flex flex-row items-center gap-3">
+              <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
               <img
                 :src="getImageUrl(currentWeatherDataForRender?.picture)"
                 alt="test"
+                class="w-12"
               />
-              <p class="text-xl">
-                Feels like {{ currentWeatherDataForRender?.feels_like }}
-              </p>
+              <div class="text-xl">
+                <p class="first-letter:uppercase">
+                  {{ currentWeatherDataForRender?.weather_description }}
+                </p>
+                <p>
+                  Feels like {{ currentWeatherDataForRender?.feels_like }}
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -74,8 +80,10 @@ let forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
 
 const getImageUrl = (picture: string | undefined) => {
   if (picture)
-    return new URL(`../assets/weather-pictures/${picture}.png`, import.meta.url).href;
-  return new URL(`../assets/weather-pictures/unknown.png`, import.meta.url).href;
+    return new URL(`../assets/weather-pictures/${picture}.png`, import.meta.url)
+      .href;
+  return new URL(`../assets/weather-pictures/unknown.png`, import.meta.url)
+    .href;
 };
 
 onMounted(async () => {

@@ -32,7 +32,7 @@ export default async function useForecastWeatherDataForRender(
         dateArr: dateArr,
         date: dateArr[2] + "_" + dateArr[3],
         weather_description: threeHourForecastItem.weather[0].description,
-        temp: threeHourForecastItem.main.temp,
+        temp: Math.round(threeHourForecastItem.main.temp) + '°',
         picture: threeHourForecastItem.weather[0].icon,
       };
     }

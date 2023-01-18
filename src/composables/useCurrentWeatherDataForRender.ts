@@ -20,8 +20,8 @@ export default async function useCurrentWeatherDataForRender(
       currentWeatherData.timezone
     ),
     weather_description: currentWeatherData.weather[0].description,
-    temp: currentWeatherData.main.temp,
-    feels_like: currentWeatherData.main.feels_like,
+    temp: Math.round(currentWeatherData.main.temp) + '°',
+    feels_like: Math.round(currentWeatherData.main.feels_like) + '°',
     picture: currentWeatherData.weather[0].icon,
     pressure: currentWeatherData.main.pressure,
     humidity: currentWeatherData.main.humidity,

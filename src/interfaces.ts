@@ -82,7 +82,7 @@ export interface ForecastWeatherData {
 export interface WeatherDataForRender {
     dateArr: string[];      
     weather_description: string;
-    temp: number;
+    temp: string;
     picture: string;
 }
 
@@ -94,7 +94,7 @@ export interface ForecastItemWeatherDataForRender extends WeatherDataForRender{
 export type WindDirection = 'N'|'N-E'|'E'|'S-E'|'S'|'S-W'|'W'|'N-W';
 
 export interface CurrentWeatherDataForRender extends WeatherDataForRender {
-    feels_like: number;
+    feels_like: string;
     pressure: number;
     humidity: number;
     wind_speed: number;
