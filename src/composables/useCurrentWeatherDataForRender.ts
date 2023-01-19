@@ -23,9 +23,9 @@ export default async function useCurrentWeatherDataForRender(
     temp: Math.round(currentWeatherData.main.temp) + '°',
     feels_like: Math.round(currentWeatherData.main.feels_like) + '°',
     picture: currentWeatherData.weather[0].icon,
-    pressure: currentWeatherData.main.pressure,
-    humidity: currentWeatherData.main.humidity,
-    wind_speed: currentWeatherData.wind.speed,
+    pressure: currentWeatherData.main.pressure + ' hPa',
+    humidity: currentWeatherData.main.humidity + '%',
+    wind_speed: currentWeatherData.wind.speed + ' m/s',
     wind_direction: degreesToWindDirection(currentWeatherData.wind.deg),
   };
 

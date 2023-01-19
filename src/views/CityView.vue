@@ -1,14 +1,14 @@
 <template>
   <div>
     <div
-      class="border-4 border-dashed border-red-500 mx-auto mt-10 p-2 md:w-3/4 lg:w-1/2"
+      class="mx-auto mt-10 p-2 md:w-1/2 lg:w-1/3"
     >
       <div v-if="!loadingWeatherData">
-        <section class="border-4 border-dashed border-blue-500 rounded-lg p-2">
+        <section class="bg-stone-100 shadow-inner rounded-lg p-2">
           <h2 class="text-2xl">
             {{ currentWeatherDataForRender?.dateArr[0] }}
           </h2>
-          <div class="border-4 border-dashed border-purple-500 h-56 pt-2">
+          <div class="border-4 border-dashed border-purple-500 h-56 pt-2 pl-4">
             <div class="flex flex-row items-center gap-3">
               <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
               <img
@@ -28,9 +28,9 @@
           </div>
         </section>
         <section
-          class="border-4 border-dashed border-green-500 rounded-lg mt-3 p-2"
+          class="bg-stone-100 rounded-lg shadow-inner mt-3 p-2"
         >
-          <h2 class="text-2xl">Forecast</h2>
+          <h2 class="text-2xl">Forecast for 5 days</h2>
           <div
             class="border-4 border-dashed border-yellow-500 hidden md:block md:h-56 text-xl pt-2"
           >

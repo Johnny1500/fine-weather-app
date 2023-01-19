@@ -95,8 +95,8 @@ export type WindDirection = 'N'|'N-E'|'E'|'S-E'|'S'|'S-W'|'W'|'N-W';
 
 export interface CurrentWeatherDataForRender extends WeatherDataForRender {
     feels_like: string;
-    pressure: number;
-    humidity: number;
-    wind_speed: number;
+    pressure: string;
+    humidity: string;
+    wind_speed: string;
     wind_direction: WindDirection
 }
