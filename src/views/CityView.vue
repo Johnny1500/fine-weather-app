@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div
-      class="mx-auto mt-10 p-2 md:w-1/2 lg:w-1/3"
-    >
+    <div class="mx-auto mt-10 p-2 md:w-1/2 lg:w-1/3">
       <div v-if="!loadingWeatherData">
         <section class="bg-stone-100 shadow-inner rounded-lg p-2">
           <h2 class="text-2xl">
@@ -13,23 +11,52 @@
               <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
               <img
                 :src="getImageUrl(currentWeatherDataForRender?.picture)"
-                alt="test"
+                alt="current weather"
                 class="w-12"
               />
               <div class="text-xl">
                 <p class="first-letter:uppercase">
                   {{ currentWeatherDataForRender?.weather_description }}
                 </p>
+                <p>Feels like {{ currentWeatherDataForRender?.feels_like }}</p>
+              </div>
+            </div>
+            <div class="flex flex-row items-center gap-5 pt-2">
+              <div class="flex flex-row items-center gap-2">
+                <img
+                  src="../assets/weather-kind-pictures/wind.png"
+                  alt="wind"
+                  class="w-8"
+                />
                 <p>
-                  Feels like {{ currentWeatherDataForRender?.feels_like }}
+                  {{ currentWeatherDataForRender?.wind_speed }},
+                  {{ currentWeatherDataForRender?.wind_direction }}
+                </p>
+              </div>
+              <div class="flex flex-row items-center">
+                <img
+                  src="../assets/weather-kind-pictures/humidity.png"
+                  alt="humidity"
+                  class="w-8"
+                />
+                <p>
+                  {{ currentWeatherDataForRender?.humidity }}
+                </p>
+              </div>
+              <div class="flex flex-row items-center gap-2">
+                <img
+                  src="../assets/weather-kind-pictures/pressure.png"
+                  alt="pressure"
+                  class="w-8"
+                />
+                <p>
+                  {{ currentWeatherDataForRender?.pressure }}
                 </p>
               </div>
             </div>
           </div>
         </section>
-        <section
-          class="bg-stone-100 rounded-lg shadow-inner mt-3 p-2"
-        >
+        <section class="bg-stone-100 rounded-lg shadow-inner mt-3 p-2">
           <h2 class="text-2xl">Forecast for 5 days</h2>
           <div
             class="border-4 border-dashed border-yellow-500 hidden md:block md:h-56 text-xl pt-2"
