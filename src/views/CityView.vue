@@ -1,12 +1,17 @@
 <template>
   <div>
-    <div class="mx-auto mt-10 p-2 md:w-1/2 lg:w-1/3">
+    <div class="mx-auto mt-10 p-2 min-w-[300px] max-w-fit">
       <div v-if="!loadingWeatherData">
-        <section class="bg-stone-100 shadow-inner rounded-lg p-2">
-          <h2 class="text-2xl">
-            {{ currentWeatherDataForRender?.dateArr[0] }}
-          </h2>
-          <div class="border-4 border-dashed border-purple-500 h-56 pt-2 pl-4">
+        <section class="bg-stone-100 shadow-inner rounded-lg p-4 divide-gray-400 divide-y-2">
+          <div class="text-2xl pb-2">
+            <h2>
+              {{ queryCity }}
+            </h2>
+            <h2>
+              {{ currentWeatherDataForRender?.dateArr[0] }}
+            </h2>
+          </div>         
+          <div class="max-h-fit py-3">
             <div class="flex flex-row items-center gap-3">
               <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
               <img
@@ -21,7 +26,9 @@
                 <p>Feels like {{ currentWeatherDataForRender?.feels_like }}</p>
               </div>
             </div>
-            <div class="flex flex-row items-center gap-5 pt-2">
+            <div
+              class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5 pt-5"
+            >
               <div class="flex flex-row items-center gap-2">
                 <img
                   src="../assets/weather-kind-pictures/wind.png"
@@ -96,6 +103,8 @@ import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDat
 
 const route = useRoute();
 
+// console.log("route.path", route.path);
+
 const lat = route.query.lat;
 const lon = route.query.lon;
 
@@ -104,6 +113,7 @@ let currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
   ref(null);
 let forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
   ref([]);
+let queryCity = ref(route.query.fullName);
 
 const getImageUrl = (picture: string | undefined) => {
   if (picture)
