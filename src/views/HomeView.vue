@@ -1,7 +1,10 @@
 <template>
   <div class="container mt-[100px]">
+    <div class="flex flex-row justify-center mb-4">
+      <img src="../assets/cloudy-day.png" alt="logo" class="w-36 sm:w-48">
+    </div>
     <div
-      class="bg-weather-primary flex flex-col justify-center items-start rounded-xl"
+      class="bg-weather-primary flex flex-col justify-center items-start rounded-xl sm:w-3/4 sm:ml-[12%] md:w-1/2 md:ml-[25%]"
       :class="`${
         cityInput.length > 0 ? 'bg-weather-secondary' : 'bg-weather-primary'
       }`"
