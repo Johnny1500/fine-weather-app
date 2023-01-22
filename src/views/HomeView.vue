@@ -190,7 +190,7 @@ watch(cityInput, (...args) => {
   return searchFromGeoDBDebounced(...args);
 });
 
-watch(selectedCityKeyboard, (value) => console.log(value));
+// watch(selectedCityKeyboard, (value) => console.log(value));
 
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);

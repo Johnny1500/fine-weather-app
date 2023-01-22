@@ -2,7 +2,9 @@
   <div>
     <div class="mx-auto mt-10 p-2 min-w-[300px] max-w-fit">
       <div v-if="!loadingWeatherData">
-        <section class="bg-stone-100 shadow-inner rounded-lg p-4 divide-gray-400 divide-y-2">
+        <section
+          class="bg-stone-100 shadow-inner rounded-lg p-4 divide-gray-400 divide-y-2"
+        >
           <div class="text-2xl pb-2">
             <h2>
               {{ queryCity }}
@@ -10,7 +12,7 @@
             <h2>
               {{ currentWeatherDataForRender?.dateArr[0] }}
             </h2>
-          </div>         
+          </div>
           <div class="max-h-fit py-3">
             <div class="flex flex-row items-center gap-3">
               <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
@@ -66,9 +68,15 @@
         <section class="bg-stone-100 rounded-lg shadow-inner mt-3 p-2">
           <h2 class="text-2xl">Forecast for 5 days</h2>
           <div
-            class="border-4 border-dashed border-yellow-500 hidden md:block md:h-56 text-xl pt-2"
+            class="border-4 border-dashed border-yellow-500 hidden md:block md:h-fit text-xl py-2"
           >
-            Forecast weather
+            <Carousel :slide-count="forecastWeatherDataForRender?.length" v-slot="{ currentSlide }">
+              <Slide v-for="(slide, index) in forecastWeatherDataForRender" key="index">
+                <div v-show="currentSlide === index" class="absolute">
+                    Forecast, {{ index }}
+                </div>
+              </Slide>
+            </Carousel>
           </div>
           <div
             class="border-4 border-dashed border-yellow-500 block md:hidden text-xl mt-2"
@@ -100,6 +108,9 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
 import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDataForRender";
+
+import Carousel from "@/components/Carousel.vue";
+import Slide from "@/components/Slide.vue";
 
 const route = useRoute();
 
