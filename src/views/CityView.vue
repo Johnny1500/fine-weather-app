@@ -70,10 +70,49 @@
           <div
             class="border-4 border-dashed border-yellow-500 hidden md:block md:h-fit text-xl py-2"
           >
-            <Carousel :slide-count="forecastWeatherDataForRender?.length" v-slot="{ currentSlide }">
-              <Slide v-for="(slide, index) in forecastWeatherDataForRender" key="index">
-                <div v-show="currentSlide === index" class="absolute">
-                    Forecast, {{ index }}
+            <Carousel
+              :slide-count="forecastWeatherDataForRender?.length"
+              v-slot="{ currentSlide }"
+            >
+              <Slide
+                v-for="(slide, index1) in forecastWeatherDataForRender"
+                key="index1"
+              >
+                <div v-show="currentSlide === index1" class="absolute">
+                  <p class="mb-1">
+                    {{
+                      slide[0].dateArr[1] +
+                      ", " +
+                      slide[0].dateArr[2] +
+                      " " +
+                      slide[0].dateArr[3]
+                    }}
+                  </p>
+                  <table>
+                    <tbody>
+                      <tr
+                        v-for="item in forecastWeatherDataForRender[index1]"
+                        class="pb-1"
+                      >
+                        <td class="px-2">
+                          {{ item.dateArr[4] }}
+                        </td>
+                        <td class="pr-3">
+                          {{ item.temp }}
+                        </td>
+                        <td>
+                          <img
+                            :src="getImageUrl(item?.picture)"
+                            alt="current weather"
+                            class="w-8"
+                          />
+                        </td>
+                        <td>
+                          {{ item.weather_description }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </Slide>
             </Carousel>

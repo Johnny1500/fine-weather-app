@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full h-48">
+  <div class="relative w-full h-72">
     <slot :currentSlide="currentSlide"></slot>
     <div class="absolute w-full h-full flex items-center justify-center px-2">
       <div class="flex flex-1">
