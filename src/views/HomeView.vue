@@ -28,8 +28,12 @@
               v-for="(item, index) in selectedGeoDBCities"
               :key="item['id']"
               class="py-2 px-4 cursor-pointer hover:bg-gray-300 hover:border-l-2 hover:border-green-600"
+              :class="`${
+                index === selectedCityKeyboard
+                  ? 'bg-gray-300 border-l-2 border-green-600'
+                  : ''
+              }`"
               @click="handleCityClick(item)"
-              @hover="handleCityHover(index)"
             >
               {{ item["name"] }},
               {{ item["countryCode"] }}
@@ -84,7 +88,7 @@ let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
 let loadingCities = ref(false);
 let errorResponse = ref(false);
-let selectedCity: Ref<number | null> = ref(null);
+let selectedCityKeyboard: Ref<number | null> = ref(null);
 
 async function searchFromGeoDB(newCityInput: string) {
   try {
@@ -141,11 +145,39 @@ function handleClickOutside(event: MouseEvent) {
   if (elem.tagName !== "LI") {
     cityInput.value = "";
     selectedGeoDBCities.value = [];
+    selectedCityKeyboard.value = null;
   }
 }
 
-function handleCityHover(cityIndex: number) {
-  selectedCity.value = cityIndex;
+function handleKeydown(event: KeyboardEvent) {
+  // console.log("event.key", event.key);
+  if (event.key === "Enter" && selectedCityKeyboard.value !== null) {
+    handleCityClick(selectedGeoDBCities.value[selectedCityKeyboard.value]);
+  }
+
+  if (event.key === "ArrowDown") {
+    if (selectedCityKeyboard.value === null) {
+      selectedCityKeyboard.value = 0;
+    } else {
+      if (selectedCityKeyboard.value === selectedGeoDBCities.value.length - 1) {
+        selectedCityKeyboard.value = 0;
+      } else {
+        selectedCityKeyboard.value++;
+      }
+    }
+  }
+
+  if (event.key === "ArrowUp") {
+    if (selectedCityKeyboard.value === null) {
+      selectedCityKeyboard.value = selectedGeoDBCities.value.length - 1;
+    } else {
+      if (selectedCityKeyboard.value === 0) {
+        selectedCityKeyboard.value = selectedGeoDBCities.value.length - 1;
+      } else {
+        selectedCityKeyboard.value--;
+      }
+    }
+  }
 }
 
 const searchFromGeoDBDebounced = debounce(searchFromGeoDB, 1200);
@@ -158,12 +190,16 @@ watch(cityInput, (...args) => {
   return searchFromGeoDBDebounced(...args);
 });
 
+watch(selectedCityKeyboard, (value) => console.log(value));
+
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleKeydown);
 });
 
 onUnmounted(() => {
   document.removeEventListener("click", handleClickOutside);
+  document.removeEventListener("keydown", handleKeydown);
 });
 </script>
 
@@ -176,10 +212,9 @@ onUnmounted(() => {
   z-index: 1;
 }
 
-// li:hover {
+// .citySelectedKeyboard {
 //   background-color: grey;
 //   border-left: 2px solid;
 //   border-color: #08a089;
 // }
-
 </style>
