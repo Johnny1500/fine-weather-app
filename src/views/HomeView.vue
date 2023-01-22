@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-[100px]">
     <div class="flex flex-row justify-center mb-4">
-      <img src="../assets/cloudy-day.png" alt="logo" class="w-36 sm:w-48">
+      <img src="../assets/cloudy-day.png" alt="logo" class="w-36 sm:w-48" />
     </div>
     <div
       class="bg-weather-primary flex flex-col justify-center items-start rounded-xl sm:w-3/4 sm:ml-[12%] md:w-1/2 md:ml-[25%]"
@@ -25,16 +25,13 @@
         <div v-if="!loadingCities">
           <ul v-if="selectedGeoDBCities.length > 0">
             <li
-              v-for="item in selectedGeoDBCities"
+              v-for="(item, index) in selectedGeoDBCities"
               :key="item['id']"
-              class="py-2 px-4 cursor-pointer"
-              @click="
-                handleCityClick(
-                  item
-                )
-              "
+              class="py-2 px-4 cursor-pointer hover:bg-gray-300 hover:border-l-2 hover:border-green-600"
+              @click="handleCityClick(item)"
+              @hover="handleCityHover(index)"
             >
-              {{ item["name"] }}, 
+              {{ item["name"] }},
               {{ item["countryCode"] }}
             </li>
           </ul>
@@ -74,10 +71,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from "vue";
+
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import { geoOptions, GEO_API_URL } from "../api";
 import { debounce } from "../utility";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
@@ -85,6 +84,7 @@ let selectedGeoDBCities = ref([]);
 let cityInput = ref("");
 let loadingCities = ref(false);
 let errorResponse = ref(false);
+let selectedCity: Ref<number | null> = ref(null);
 
 async function searchFromGeoDB(newCityInput: string) {
   try {
@@ -121,21 +121,18 @@ async function searchFromGeoDB(newCityInput: string) {
 }
 
 function handleCityClick(cityObj: any) {
+  const { city, latitude, longitude, countryCode } = cityObj;
 
-  const {city, latitude, longitude, countryCode} = cityObj;
-
-  const fullName = city + ', ' + countryCode;
+  const fullName = city + ", " + countryCode;
 
   router.push({
     path: `city/${city}`,
     query: {
       lat: latitude,
       lon: longitude,
-      fullName: fullName
-    }
-  })
-
-
+      fullName: fullName,
+    },
+  });
 }
 
 function handleClickOutside(event: MouseEvent) {
@@ -145,6 +142,10 @@ function handleClickOutside(event: MouseEvent) {
     cityInput.value = "";
     selectedGeoDBCities.value = [];
   }
+}
+
+function handleCityHover(cityIndex: number) {
+  selectedCity.value = cityIndex;
 }
 
 const searchFromGeoDBDebounced = debounce(searchFromGeoDB, 1200);
@@ -174,4 +175,11 @@ onUnmounted(() => {
   content: "\f002";
   z-index: 1;
 }
+
+// li:hover {
+//   background-color: grey;
+//   border-left: 2px solid;
+//   border-color: #08a089;
+// }
+
 </style>
