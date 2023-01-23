@@ -10,15 +10,15 @@
       }}
     </p>
     <table>
-      <tbody>
-        <tr v-for="item in forecastWeatherDayDataForRender" class="pb-1">
-          <td class="px-2">
+      <tbody class="text-base">
+        <tr v-for="item in forecastWeatherDayDataForRender">
+          <td class="px-2 pt-2">
             {{ item.dateArr[4] }}
           </td>
-          <td class="pr-3">
+          <td class="pr-4 pt-2">
             {{ item.temp }}
           </td>
-          <td>
+          <td class="flex items-end justify-start">
             <img
               :src="
                 getImageUrl('../src/assets/weather-pictures/', item?.picture)
@@ -26,10 +26,10 @@
               alt="current weather"
               class="w-8"
             />
-          </td>
-          <td>
-            {{ item.weather_description }}
-          </td>
+            <p class="ml-3">
+              {{ item.weather_description }}
+            </p>
+          </td>          
         </tr>
       </tbody>
     </table>
@@ -37,17 +37,16 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from "vue";
 import type { ForecastItemWeatherDataForRender } from "../interfaces";
 
-import { ref, toRefs } from "vue";
+import { toRefs } from "vue";
 
 import { getImageUrl } from "@/utility";
 
 const props = withDefaults(
   defineProps<{
     forecastWeatherDayDataForRender: ForecastItemWeatherDataForRender[];
-    showTitle: boolean;
+    showTitle?: boolean;
   }>(),
   {
     showTitle: false,
@@ -56,5 +55,3 @@ const props = withDefaults(
 
 const { forecastWeatherDayDataForRender, showTitle } = toRefs(props);
 </script>
-
-<style scoped></style>
