@@ -82,7 +82,7 @@
         class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
       >
         <h2 class="text-2xl pb-1">Forecast for 5 days</h2>
-        <div class="hidden md:block md:h-fit text-xl py-2">
+        <div class="hidden h-[25rem] md:block md:h-fit text-xl pt-2">
           <Carousel
             :slide-count="forecastWeatherDataForRender.slice(1)?.length"
             v-slot="{ currentSlide }"

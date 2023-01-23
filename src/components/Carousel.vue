@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full h-72"
+    class="relative w-full h-[22rem]"
     @mouseover="showNavigation = true"
     @mouseout="showNavigation = false"
   >
@@ -18,6 +18,16 @@
         </div>
       </div>
     </transition>
+    <div class="absolute w-full bottom-2 flex items-center justify-center gap-3">
+      <span
+        v-for="(slide, index) in slideCount"
+        @click="goToSlide(index)"
+        :key="index"
+        :class="`${currentSlide === index ? 'bg-[#08a089]' : 'bg-weather-primary'}`"
+        class="cursor-pointer w-5 h-5 rounded-full"
+      >
+      </span>
+    </div>
   </div>
 </template>
 
@@ -36,6 +46,10 @@ const props = withDefaults(
 const currentSlide = ref(0);
 const slideCount = ref(props.slideCount);
 const showNavigation = ref(false);
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index;
+};
 
 const nextSlide = () => {
   if (currentSlide.value === slideCount.value - 1) {
