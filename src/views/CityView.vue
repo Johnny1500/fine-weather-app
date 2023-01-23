@@ -17,7 +17,12 @@
             <div class="flex flex-row items-center gap-3">
               <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
               <img
-                :src="getImageUrl(currentWeatherDataForRender?.picture)"
+                :src="
+                  getImageUrl(
+                    '../src/assets/weather-pictures/',
+                    currentWeatherDataForRender?.picture
+                  )
+                "
                 alt="current weather"
                 class="w-12"
               />
@@ -79,40 +84,10 @@
                 key="index1"
               >
                 <div v-show="currentSlide === index1" class="absolute">
-                  <p class="mb-1">
-                    {{
-                      slide[0].dateArr[1] +
-                      ", " +
-                      slide[0].dateArr[2] +
-                      " " +
-                      slide[0].dateArr[3]
-                    }}
-                  </p>
-                  <table>
-                    <tbody>
-                      <tr
-                        v-for="item in forecastWeatherDataForRender[index1]"
-                        class="pb-1"
-                      >
-                        <td class="px-2">
-                          {{ item.dateArr[4] }}
-                        </td>
-                        <td class="pr-3">
-                          {{ item.temp }}
-                        </td>
-                        <td>
-                          <img
-                            :src="getImageUrl(item?.picture)"
-                            alt="current weather"
-                            class="w-8"
-                          />
-                        </td>
-                        <td>
-                          {{ item.weather_description }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <ForecastTable
+                    :forecast-weather-day-data-for-render="slide"
+                    :show-title="true"
+                  />
                 </div>
               </Slide>
             </Carousel>
@@ -150,6 +125,9 @@ import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDat
 
 import Carousel from "@/components/Carousel.vue";
 import Slide from "@/components/Slide.vue";
+import ForecastTable from "@/components/ForecastTable.vue";
+
+import { getImageUrl } from "@/utility";
 
 const route = useRoute();
 
@@ -164,14 +142,6 @@ let currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
 let forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
   ref([]);
 let queryCity = ref(route.query.fullName);
-
-const getImageUrl = (picture: string | undefined) => {
-  if (picture)
-    return new URL(`../assets/weather-pictures/${picture}.png`, import.meta.url)
-      .href;
-  return new URL(`../assets/weather-pictures/unknown.png`, import.meta.url)
-    .href;
-};
 
 onMounted(async () => {
   loadingWeatherData.value = true;

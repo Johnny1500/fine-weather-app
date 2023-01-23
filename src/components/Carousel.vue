@@ -13,14 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from "vue";
+import { ref } from "vue";
 
 const props = defineProps({
   slideCount: Number,
 });
 
 const currentSlide = ref(0);
-const slideCount = ref(props.slideCount === undefined ? 1 : props.slideCount);
+const slideCount = ref(props.slideCount ?? 1);
 console.log('slideCount', slideCount);
 
 const nextSlide = () => {
