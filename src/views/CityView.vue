@@ -81,7 +81,7 @@
       <section
         class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
       >
-        <h2 class="text-2xl pb-2">Forecast for 5 days</h2>
+        <h2 class="text-2xl pb-1">Forecast for 5 days</h2>
         <div class="hidden md:block md:h-fit text-xl py-2">
           <Carousel
             :slide-count="forecastWeatherDataForRender.slice(1)?.length"
@@ -101,17 +101,17 @@
           </Carousel>
         </div>
         <div
-          class="border-4 border-dashed border-yellow-500 block md:hidden text-xl mt-2"
+          class="block md:hidden text-xl mt-2 divide-gray-400 divide-y-2"
         >
-          <!-- <p
+          <p
               v-for="slide in forecastWeatherDataForRender.slice(1)"
-              class="border-4 border-dashed border-orange-500 py-2"
+              class="py-2"
             >
               <ForecastTable
                 :forecast-weather-day-data-for-render="slide"
                 :show-title="true"
               />
-            </p> -->
+            </p>
         </div>
       </section>
     </div>

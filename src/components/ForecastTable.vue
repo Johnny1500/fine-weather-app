@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="showTitle">
+    <p v-if="showTitle" class="px-2">
       {{
         forecastWeatherDayDataForRender[0].dateArr[1] +
         ", " +
