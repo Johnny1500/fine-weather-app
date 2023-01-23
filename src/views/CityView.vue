@@ -1,18 +1,18 @@
 <template>
   <div
     class="mx-auto mt-10 p-2 min-w-[300px] max-w-fit flex flex-col items-center justify-center"
-  >
-    <div v-if="!loadingWeatherData">
+  > 
+  <div v-if="!loadingWeatherData">
       <section
         class="bg-stone-100 shadow-inner rounded-lg p-4 divide-gray-400 divide-y-2"
       >
         <div class="text-2xl pb-2">
-          <h2>
+          <h1>
             {{ queryCity }}
-          </h2>
-          <h2>
+          </h1>
+          <h1>
             {{ currentWeatherDataForRender?.dateArr[0] }}
-          </h2>
+          </h1>
         </div>
         <div class="max-h-fit py-3">
           <div class="flex flex-row items-center gap-3">
@@ -81,7 +81,7 @@
       <section
         class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
       >
-        <h2 class="text-2xl pb-1">Forecast for 5 days</h2>
+        <h1 class="text-2xl pb-1">Forecast for 5 days</h1>
         <div class="hidden h-[25rem] md:block md:h-fit text-xl pt-2">
           <Carousel
             :slide-count="forecastWeatherDataForRender.slice(1)?.length"
@@ -99,7 +99,7 @@
               </div>
             </Slide>
           </Carousel>
-        </div>
+        </div>        
         <div
           class="block md:hidden text-xl mt-2 divide-gray-400 divide-y-2"
         >
@@ -113,10 +113,10 @@
               />
             </p>
         </div>
-      </section>
-    </div>
+      </section>     
+    </div>    
     <div v-else>
-      <p class="text-xl">Loading...</p>
+      <WeatherSkeleton />
     </div>
   </div>
 </template>
@@ -136,6 +136,7 @@ import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDat
 import Carousel from "@/components/Carousel.vue";
 import Slide from "@/components/Slide.vue";
 import ForecastTable from "@/components/ForecastTable.vue";
+import WeatherSkeleton from "@/components/WeatherSkeleton.vue";
 
 import { getImageUrl } from "@/utility";
 
