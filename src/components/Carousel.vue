@@ -1,7 +1,14 @@
 <template>
-  <div class="relative w-full h-72">
+  <div
+    class="relative w-full h-72"
+    @mouseover="showNavigation = true"
+    @mouseout="showNavigation = false"
+  >
     <slot :currentSlide="currentSlide"></slot>
-    <div class="absolute w-full h-full flex items-center justify-center px-2">
+    <div
+      class="absolute w-full h-full flex items-center justify-center px-2"
+      v-show="showNavigation"
+    >
       <div class="flex flex-1">
         <i @click="prevSlide" class="fas fa-chevron-left"></i>
       </div>
@@ -15,13 +22,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = defineProps({
-  slideCount: Number,
-});
+const props = withDefaults(
+  defineProps<{
+    slideCount: number;
+  }>(),
+  {
+    slideCount: 1,
+  }
+);
 
 const currentSlide = ref(0);
-const slideCount = ref(props.slideCount ?? 1);
-console.log('slideCount', slideCount);
+const slideCount = ref(props.slideCount);
+const showNavigation = ref(false);
 
 const nextSlide = () => {
   if (currentSlide.value === slideCount.value - 1) {
