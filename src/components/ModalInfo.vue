@@ -3,20 +3,17 @@
     <transition name="modal-outer">
       <div
         v-show="modalActive"
-        class="absolute w-full h-screen top-0 left-0 flex justify-center bg-black bg-opacity-30 px-8"
+        class="absolute z-10 w-full h-screen top-0 left-0 flex justify-center bg-black bg-opacity-30 px-8"
       >
         <transition name="modal-inner">
           <div
             v-if="modalActive"
-            class="p-4 bg-white self-start mt-32 max-w-screen-md"
+            class="relative p-4 bg-white self-start mt-32 max-w-screen-md"
           >
-            <slot></slot>
-            <button
-              class="text-white bg-[#08a089] mt-5 py-2 px-6"
-              @click="$emit('close-modal')"
-            >
-              Close
+            <button class="absolute top-2 right-2 w-8 h-8 hover:bg-red-500 hover:text-white duration-150" @click="$emit('close-modal')">
+              <i class="fa fa-times fa-lg"></i>
             </button>
+            <slot></slot>           
           </div>
         </transition>
       </div>
