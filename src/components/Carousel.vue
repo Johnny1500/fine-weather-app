@@ -70,18 +70,18 @@ const prevSlide = () => {
 
 <style scoped>
 .slide-navigation-enter-active {
-  transition: opacity 1s ease-in-out;
+  transition: opacity .5s ease-in-out;
 }
 .slide-navigation-leave-active {
-  transition: opacity 1s ease-in-out;
+  transition: opacity .5s ease-in-out;
 }
 .slide-navigation-enter-from,
 .slide-navigation-leave-to {
-  opacity: 0 !important;
+  opacity: 0;
 }
 .slide-navigation-enter-to,
 .slide-navigation-leave-from {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 i {
