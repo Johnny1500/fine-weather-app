@@ -1,5 +1,5 @@
 <template>
-  <div class="animate-pulse w-[290px] md:w-[380px]">
+  <div class="animate-pulse w-[18rem] sm:w-[23.75rem]">
     <section
       class="bg-stone-100 shadow-inner rounded-lg p-4 mt-3 divide-gray-400 divide-y-2"
     >
@@ -24,7 +24,7 @@
       class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
     >
       <div class="h-[1.8rem] rounded-full bg-weather-primary mb-3"></div>
-      <div class="pt-4 hidden md:block md:h-[360px]">
+      <div class="pt-4 hidden md:block md:h-[22.5rem]">
         <div class="h-[1.5rem] rounded-full bg-weather-primary"></div>
         <div class="pt-3">
           <div
@@ -34,7 +34,7 @@
         </div>
         <div class="relative mt-8 h-[2rem] flex justify-center">
           <div
-            class="absolute bottom-2 h-[1.5rem] w-[200px] rounded-full bg-weather-primary"
+            class="absolute bottom-2 h-[1.5rem] w-[12.5rem] rounded-full bg-weather-primary"
           ></div>
         </div>
       </div>

@@ -90,8 +90,8 @@ i {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: #08a089;
   color: #fff;
 }

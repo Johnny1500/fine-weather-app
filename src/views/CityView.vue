@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mx-auto mt-10 p-2 min-w-[300px] max-w-fit flex flex-col items-center justify-center"
+    class="mx-auto mt-10 p-2 min-w-[18.75rem] max-w-fit flex flex-col items-center justify-center"
   > 
   <div v-if="!loadingWeatherData">
       <section
@@ -113,7 +113,8 @@
               />
             </p>
         </div>
-      </section>     
+      </section>
+      <WeatherSkeleton />     
     </div>    
     <div v-else>
       <WeatherSkeleton />
