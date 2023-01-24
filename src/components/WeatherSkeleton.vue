@@ -1,5 +1,5 @@
 <template>
-  <div class="animate-pulse min-w-[300px]">
+  <div class="animate-pulse w-[290px] md:w-[380px]">
     <section
       class="bg-stone-100 shadow-inner rounded-lg p-4 mt-3 divide-gray-400 divide-y-2"
     >
@@ -16,20 +16,25 @@
       <div class="pt-3">
         <div
           v-for="item in Array.from({ length: 8 })"
-          class="h-5 rounded-full bg-weather-primary mb-2"
+          class="h-5 rounded-full bg-weather-primary mb-3"
         ></div>
       </div>
     </section>
     <section
       class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
     >
-      <div class="h-[1.8rem] rounded-full bg-weather-primary mb-2"></div>
-      <div class="pt-3 hidden md:block">
+      <div class="h-[1.8rem] rounded-full bg-weather-primary mb-3"></div>
+      <div class="pt-4 hidden md:block md:h-[360px]">
         <div class="h-[1.5rem] rounded-full bg-weather-primary"></div>
         <div class="pt-3">
           <div
             v-for="item in Array.from({ length: 8 })"
-            class="h-5 rounded-full bg-weather-primary mb-2"
+            class="h-5 rounded-full bg-weather-primary mb-3"
+          ></div>
+        </div>
+        <div class="relative mt-8 h-[2rem] flex justify-center">
+          <div
+            class="absolute bottom-2 h-[1.5rem] w-[200px] rounded-full bg-weather-primary"
           ></div>
         </div>
       </div>
