@@ -33,7 +33,7 @@
               current weather for your selection.
             </li>
             <li>
-              Track the city by clicking on the "+" icon in the top right. This
+              Track the city by clicking on the "+" button in the top right. This
               will save the city to view at a later time on the home page.
             </li>
           </ol>
