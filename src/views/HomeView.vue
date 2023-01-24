@@ -212,9 +212,4 @@ onUnmounted(() => {
   z-index: 1;
 }
 
-// .citySelectedKeyboard {
-//   background-color: grey;
-//   border-left: 2px solid;
-//   border-color: #08a089;
-// }
 </style>
