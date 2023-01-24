@@ -1,5 +1,5 @@
 <template>
-  <div class="animate-pulse w-[18rem] sm:w-[23.75rem]">
+  <div v-once class="animate-pulse w-[18rem] sm:w-[23.75rem]">
     <section
       class="bg-stone-100 shadow-inner rounded-lg p-4 mt-3 divide-gray-400 divide-y-2"
     >
@@ -50,7 +50,3 @@
     </section>
   </div>
 </template>
-
-<script setup lang="ts"></script>
-
-<style scoped></style>

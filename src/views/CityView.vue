@@ -113,8 +113,7 @@
               />
             </p>
         </div>
-      </section>
-      <WeatherSkeleton />     
+      </section>      
     </div>    
     <div v-else>
       <WeatherSkeleton />
