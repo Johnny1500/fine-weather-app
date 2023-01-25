@@ -1,12 +1,15 @@
 <template>
   <div class="divide-gray-400 divide-y-2">
-    <div class="text-2xl pb-2">
+    <div class="relative text-2xl pb-2">
       <h1>
         {{ queryCity }}
       </h1>
       <h1>
         {{ currentWeatherDataForRender?.dateArr[0] }}
       </h1>
+      <i
+        class="fa-solid fa-plus absolute top-2 right-2 text-xl hover:text-weather-green duration-150 cursor-pointer"
+      ></i>
     </div>
 
     <div class="max-h-fit py-3">
