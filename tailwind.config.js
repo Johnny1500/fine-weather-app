@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         "weather-primary": "#d5d4d4",
         "weather-secondary": "#fff",
+        "weather-green": "#08a089"
       },
     },
     fontFamily: {

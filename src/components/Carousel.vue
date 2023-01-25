@@ -23,7 +23,7 @@
         v-for="(slide, index) in slideCount"
         @click="goToSlide(index)"
         :key="index"
-        :class="`${currentSlide === index ? 'bg-[#08a089]' : 'bg-weather-primary'}`"
+        :class="`${currentSlide === index ? 'bg-weather-green' : 'bg-weather-primary'}`"
         class="cursor-pointer w-5 h-5 rounded-full"
       >
       </span>
