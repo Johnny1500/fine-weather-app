@@ -1,75 +1,16 @@
 <template>
   <div
     class="mx-auto mt-10 p-2 min-w-[18.75rem] max-w-fit flex flex-col items-center justify-center"
-  > 
-  <div v-if="!loadingWeatherData">
+  >
+    <div v-if="!loadingWeatherData">
       <section
         class="bg-stone-100 shadow-inner rounded-lg p-4 divide-gray-400 divide-y-2"
       >
-        <div class="text-2xl pb-2">
-          <h1>
-            {{ queryCity }}
-          </h1>
-          <h1>
-            {{ currentWeatherDataForRender?.dateArr[0] }}
-          </h1>
-        </div>
-        <div class="max-h-fit py-3">
-          <div class="flex flex-row items-center gap-3">
-            <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
-            <img
-              :src="
-                getImageUrl(
-                  '../src/assets/weather-pictures/',
-                  currentWeatherDataForRender?.picture
-                )
-              "
-              alt="current weather"
-              class="w-12"
-            />
-            <div class="text-xl">
-              <p class="first-letter:uppercase">
-                {{ currentWeatherDataForRender?.weather_description }}
-              </p>
-              <p>Feels like {{ currentWeatherDataForRender?.feels_like }}</p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5 pt-5"
-          >
-            <div class="flex flex-row items-center gap-2">
-              <img
-                src="../assets/weather-kind-pictures/wind.png"
-                alt="wind"
-                class="w-8"
-              />
-              <p>
-                {{ currentWeatherDataForRender?.wind_speed }},
-                {{ currentWeatherDataForRender?.wind_direction }}
-              </p>
-            </div>
-            <div class="flex flex-row items-center">
-              <img
-                src="../assets/weather-kind-pictures/humidity.png"
-                alt="humidity"
-                class="w-8"
-              />
-              <p>
-                {{ currentWeatherDataForRender?.humidity }}
-              </p>
-            </div>
-            <div class="flex flex-row items-center gap-2">
-              <img
-                src="../assets/weather-kind-pictures/pressure.png"
-                alt="pressure"
-                class="w-8"
-              />
-              <p>
-                {{ currentWeatherDataForRender?.pressure }}
-              </p>
-            </div>
-          </div>
-        </div>
+        <CityCurrentWeatherCard
+          :current-weather-data-for-render="currentWeatherDataForRender"
+          :query-city="queryCity?.toLocaleString()"
+        />
+
         <div v-if="forecastWeatherDataForRender[0]" class="pt-2">
           <ForecastTable
             :forecast-weather-day-data-for-render="
@@ -99,22 +40,20 @@
               </div>
             </Slide>
           </Carousel>
-        </div>        
-        <div
-          class="block md:hidden text-xl mt-2 divide-gray-400 divide-y-2"
-        >
-          <p
-              v-for="slide in forecastWeatherDataForRender.slice(1)"
-              class="py-2"
-            >
-              <ForecastTable
-                :forecast-weather-day-data-for-render="slide"
-                :show-title="true"
-              />
-            </p>
         </div>
-      </section>      
-    </div>    
+        <div class="block md:hidden text-xl mt-2 divide-gray-400 divide-y-2">
+          <p
+            v-for="slide in forecastWeatherDataForRender.slice(1)"
+            class="py-2"
+          >
+            <ForecastTable
+              :forecast-weather-day-data-for-render="slide"
+              :show-title="true"
+            />
+          </p>
+        </div>
+      </section>
+    </div>
     <div v-else>
       <WeatherSkeleton />
     </div>
@@ -137,8 +76,7 @@ import Carousel from "@/components/Carousel.vue";
 import Slide from "@/components/Slide.vue";
 import ForecastTable from "@/components/ForecastTable.vue";
 import WeatherSkeleton from "@/components/WeatherSkeleton.vue";
-
-import { getImageUrl } from "@/utility";
+import CityCurrentWeatherCard from "@/components/CityCurrentWeatherCard.vue";
 
 const route = useRoute();
 
