@@ -2,14 +2,25 @@
   <div class="divide-gray-400 divide-y-2">
     <div class="relative text-2xl pb-2">
       <h1>
-        {{ queryCity }}
+        {{ cityFullName }}
       </h1>
       <h1>
         {{ currentWeatherDataForRender?.dateArr[0] }}
       </h1>
-      <i
-        class="fa-solid fa-plus absolute top-2 right-2 text-xl hover:text-weather-green duration-150 cursor-pointer"
-      ></i>
+      <button
+        @click="handleSetItem"
+        class="w-8 h-8 absolute top-1 right-1 text-xl hover:bg-weather-green hover:text-white duration-150 cursor-pointer rounded-full"
+        v-if="!savedToLocalStorageCityCard"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <button
+        @click="handleRemoveItem"
+        class="w-8 h-8 absolute top-1 right-1 text-xl hover:bg-red-500 hover:text-white duration-150 cursor-pointer rounded-full"
+        v-if="savedToLocalStorageCityCard"
+      >
+        <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
 
     <div class="max-h-fit py-3">
@@ -74,14 +85,34 @@
 <script setup lang="ts">
 import type { CurrentWeatherDataForRender } from "../interfaces";
 
-import { toRefs } from "vue";
+import { ref, toRefs } from "vue";
 
 import { getImageUrl } from "@/utility";
 
-const props = defineProps<{
-  currentWeatherDataForRender: CurrentWeatherDataForRender | null;
-  queryCity: string | undefined;
-}>();
+const emit = defineEmits(["setItemToLocalStorage", "removeItemFromLocalStorage"]);
+const props = withDefaults(
+  defineProps<{
+    currentWeatherDataForRender: CurrentWeatherDataForRender | null;
+    cityFullName: string | undefined;   
+    savedToLocalStorage?: boolean;
+  }>(),
+  {
+    savedToLocalStorage: false,
+  }
+);
 
-const { currentWeatherDataForRender, queryCity } = toRefs(props);
+const { currentWeatherDataForRender, cityFullName, savedToLocalStorage } = toRefs(props);
+const savedToLocalStorageCityCard = ref(savedToLocalStorage.value)
+
+const handleSetItem = ():void => {
+  emit('setItemToLocalStorage', cityFullName.value);
+  savedToLocalStorageCityCard.value = true;
+}
+
+const handleRemoveItem = ():void => {
+  emit('removeItemFromLocalStorage', cityFullName.value);
+  savedToLocalStorageCityCard.value = false;
+}
+
+
 </script>

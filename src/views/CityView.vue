@@ -8,7 +8,14 @@
       >
         <CityCurrentWeatherCard
           :current-weather-data-for-render="currentWeatherDataForRender"
-          :query-city="queryCity?.toLocaleString()"
+          :city-full-name="queryCity?.toLocaleString()"
+          :saved-to-local-storage="citySavedToLocalStorage"
+          @set-item-to-local-storage="
+            setFineWeatherCityItemToLocalStorageFromCityView
+          "
+          @remove-item-from-local-storage="
+            removeWeatherCityItemFromLocalStorageFromCityView
+          "
         />
 
         <div v-if="forecastWeatherDataForRender[0]" class="pt-2">
@@ -65,12 +72,19 @@ import type { Ref } from "vue";
 import type {
   CurrentWeatherDataForRender,
   ForecastItemWeatherDataForRender,
+  CityLocalStorageItem,
 } from "../interfaces";
 
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
+
 import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
 import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDataForRender";
+import {
+  setFineWeatherCityItemToLocalStorage,
+  getFineWeatherCitiesFromLocalStorage,
+  removeWeatherCityItemFromLocalStorage,
+} from "@/composables/useFineWeatherLocalStorage";
 
 import Carousel from "@/components/Carousel.vue";
 import Slide from "@/components/Slide.vue";
@@ -82,8 +96,8 @@ const route = useRoute();
 
 // console.log("route.path", route.path);
 
-const lat = route.query.lat;
-const lon = route.query.lon;
+const lat = ref(route.query.lat);
+const lon = ref(route.query.lon);
 
 const loadingWeatherData = ref(false);
 const currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
@@ -91,19 +105,61 @@ const currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
 const forecastWeatherDataForRender: Ref<ForecastItemWeatherDataForRender[][]> =
   ref([]);
 const queryCity = ref(route.query.fullName);
+const fineWeatherCitiesLocalStorage: Ref<CityLocalStorageItem[]> = ref([]);
+const citySavedToLocalStorage = ref(false);
+
+const setFineWeatherCityItemToLocalStorageFromCityView = (
+  cityItemFullName: string
+): void => {
+  fineWeatherCitiesLocalStorage.value = setFineWeatherCityItemToLocalStorage(
+    cityItemFullName,
+    lat.value?.toLocaleString(),
+    lon.value?.toLocaleString(),
+    fineWeatherCitiesLocalStorage.value
+  );
+
+  console.log(
+    "fineWeatherCitiesLocalStorage.value === ",
+    fineWeatherCitiesLocalStorage.value
+  );
+};
+
+const removeWeatherCityItemFromLocalStorageFromCityView = (
+  cityItemFullName: string
+): void => {
+  fineWeatherCitiesLocalStorage.value = removeWeatherCityItemFromLocalStorage(
+    cityItemFullName,
+    fineWeatherCitiesLocalStorage.value
+  );
+
+  console.log(
+    "fineWeatherCitiesLocalStorage.value === ",
+    fineWeatherCitiesLocalStorage.value
+  );
+
+};
 
 onMounted(async () => {
   loadingWeatherData.value = true;
 
   currentWeatherDataForRender.value = await useCurrentWeatherDataForRender(
-    lat,
-    lon
+    lat.value,
+    lon.value
   );
   forecastWeatherDataForRender.value = await useForecastWeatherDataForRender(
-    lat,
-    lon
+    lat.value,
+    lon.value
   );
 
+  fineWeatherCitiesLocalStorage.value = getFineWeatherCitiesFromLocalStorage();
+
+  fineWeatherCitiesLocalStorage.value.forEach((city) => {
+    if (city.cityItemFullName === queryCity.value?.toLocaleString()) {
+      citySavedToLocalStorage.value = true;
+    }
+  });
+
+  console.group("City view ref values");
   console.log(
     "currentWeatherDataForRender.value === ",
     currentWeatherDataForRender.value
@@ -112,6 +168,15 @@ onMounted(async () => {
     "forecastWeatherDataForRender.value === ",
     forecastWeatherDataForRender.value
   );
+  console.log(
+    "fineWeatherCitiesLocalStorage.value === ",
+    fineWeatherCitiesLocalStorage.value
+  );
+  console.log(
+    "citySavedToLocalStorage.value === ",
+    citySavedToLocalStorage.value
+  );
+  console.groupEnd();
 
   loadingWeatherData.value = false;
 });

@@ -100,3 +100,9 @@ export interface CurrentWeatherDataForRender extends WeatherDataForRender {
     wind_speed: string;
     wind_direction: WindDirection
 }
+
+export interface CityLocalStorageItem {
+    cityItemFullName: string | undefined;
+    lat: string | undefined;
+    lon: string | undefined
+}
