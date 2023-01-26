@@ -9,8 +9,8 @@ import type {
 import type { LocationQueryValue } from "vue-router";
 
 export default async function useForecastWeatherDataForRender(
-  lat: LocationQueryValue | LocationQueryValue[],
-  lon: LocationQueryValue | LocationQueryValue[]
+  lat: string | undefined,
+  lon: string | undefined
 ) {
   const forecastWeatherData = await useOpenWeatherData<ForecastWeatherData>(
     lat,

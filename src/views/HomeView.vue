@@ -71,6 +71,7 @@
         </div>
       </div>
     </div>
+    <CityCardBlock />
   </div>
 </template>
 
@@ -81,6 +82,8 @@ import { ref, watch, onMounted, onUnmounted } from "vue";
 import { geoOptions, GEO_API_URL } from "../api";
 import { debounce } from "../utility";
 import { useRouter } from "vue-router";
+
+import CityCardBlock from "@/components/CityCardBlock.vue";
 
 const router = useRouter();
 

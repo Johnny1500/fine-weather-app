@@ -5,8 +5,8 @@ import type { CurrentWeatherData, CurrentWeatherDataForRender } from "../interfa
 import type { LocationQueryValue } from "vue-router";
 
 export default async function useCurrentWeatherDataForRender(
-  lat: LocationQueryValue | LocationQueryValue[],
-  lon: LocationQueryValue | LocationQueryValue[]
+  lat: string | undefined,
+  lon: string | undefined
 ) {
   const currentWeatherData = await useOpenWeatherData<CurrentWeatherData>(
     lat,
