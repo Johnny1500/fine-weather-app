@@ -80,6 +80,7 @@ export interface ForecastWeatherData {
 }
 
 export interface WeatherDataForRender {
+    city_full_name: string | undefined;
     dateArr: string[];      
     weather_description: string;
     temp: string;

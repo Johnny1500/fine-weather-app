@@ -144,11 +144,13 @@ onMounted(async () => {
 
   currentWeatherDataForRender.value = await useCurrentWeatherDataForRender(
     lat.value?.toLocaleString(),
-    lon.value?.toLocaleString()
+    lon.value?.toLocaleString(),
+    queryCity.value?.toLocaleString()
   );
   forecastWeatherDataForRender.value = await useForecastWeatherDataForRender(
     lat.value?.toLocaleString(),
     lon.value?.toLocaleString(),
+    queryCity.value?.toLocaleString()
   );
 
   fineWeatherCitiesLocalStorage.value = getFineWeatherCitiesFromLocalStorage();

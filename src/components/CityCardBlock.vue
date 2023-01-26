@@ -1,5 +1,26 @@
 <template>
-  <div></div>
+  <div class="mt-5">
+    <div v-if="!loadingWeatherData">
+      <div
+        v-if="currentWeatherDataForRenderArr.length > 0"
+        class="flex flex-col sm:flex-row items-center justify-center gap-5"
+      >
+        <section class="bg-stone-100 shadow-inner rounded-lg p-4" v-for="(item, index) in currentWeatherDataForRenderArr">
+          <CityCurrentWeatherCard
+            :current-weather-data-for-render="item"
+            :city-full-name="item.city_full_name"
+            :saved-to-local-storage="true"
+          />
+        </section>
+      </div>
+      <div v-else>
+        <p class="text-xl">You haven't saved cities yet</p>
+      </div>
+    </div>
+    <div v-else>
+      <p class="text-xl">Loading...</p>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -21,8 +42,9 @@ import {
 import CityCurrentWeatherCard from "@/components/CityCurrentWeatherCard.vue";
 
 const fineWeatherCitiesLocalStorage: Ref<CityLocalStorageItem[]> = ref([]);
-const currentWeatherDataForRender: Ref<CurrentWeatherDataForRender | null> =
-  ref(null);
+const currentWeatherDataForRenderArr: Ref<CurrentWeatherDataForRender[]> = ref(
+  []
+);
 
 const loadingWeatherData = ref(false);
 
@@ -31,14 +53,14 @@ onMounted(async () => {
 
   fineWeatherCitiesLocalStorage.value = getFineWeatherCitiesFromLocalStorage();
 
-  const promises = fineWeatherCitiesLocalStorage.value.map(
-    ({ lat, lon, cityItemFullName }: CityLocalStorageItem) => {
-      // const {lat, lon} = city;
-      return useCurrentWeatherDataForRender(lat, lon);
-    }
-  );
+  const promises: Promise<CurrentWeatherDataForRender>[] =
+    fineWeatherCitiesLocalStorage.value.map(
+      ({ lat, lon, cityItemFullName }: CityLocalStorageItem) => {
+        return useCurrentWeatherDataForRender(lat, lon, cityItemFullName);
+      }
+    );
 
-  const results:CurrentWeatherDataForRender[] = await Promise.all(promises);
+  currentWeatherDataForRenderArr.value = await Promise.all(promises);
 
   console.group("City Block values");
   console.log(
@@ -46,7 +68,10 @@ onMounted(async () => {
     fineWeatherCitiesLocalStorage.value
   );
   console.log("promises", promises);
-  console.log('results', results);
+  console.log(
+    "currentWeatherDataForRenderArr.value",
+    currentWeatherDataForRenderArr.value
+  );
   console.groupEnd();
 
   loadingWeatherData.value = false;

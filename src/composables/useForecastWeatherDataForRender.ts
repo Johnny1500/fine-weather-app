@@ -10,7 +10,8 @@ import type { LocationQueryValue } from "vue-router";
 
 export default async function useForecastWeatherDataForRender(
   lat: string | undefined,
-  lon: string | undefined
+  lon: string | undefined,
+  cityFullName: string | undefined
 ) {
   const forecastWeatherData = await useOpenWeatherData<ForecastWeatherData>(
     lat,
@@ -29,6 +30,7 @@ export default async function useForecastWeatherDataForRender(
 
       return {
         dt: threeHourForecastItem.dt,
+        city_full_name: cityFullName,
         dateArr: dateArr,
         date: dateArr[2] + "_" + dateArr[3],
         weather_description: threeHourForecastItem.weather[0].description,

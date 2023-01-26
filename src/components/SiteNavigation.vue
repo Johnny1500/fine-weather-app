@@ -8,10 +8,7 @@
         </div>
       </RouterLink>
       <div class="flex flex-1 justify-end gap-3">
-        <i
-          class="fa-solid fa-circle-info text-2xl hover:text-weather-green duration-150 cursor-pointer"
-          @click="toggleModal"
-        ></i>        
+        <p class="text-2xl cursor-pointer" @click="toggleModal">About</p>
       </div>
       <ModalInfo :modal-active="modalActive" @close-modal="toggleModal">
         <div class="text-black">
@@ -30,8 +27,8 @@
               current weather for your selection.
             </li>
             <li>
-              Track the city by clicking on the "+" button in the top right. This
-              will save the city to view at a later time on the home page.
+              Track the city by clicking on the "+" button in the top right.
+              This will save the city to view at a later time on the home page.
             </li>
           </ol>
 

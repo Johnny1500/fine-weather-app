@@ -6,7 +6,8 @@ import type { LocationQueryValue } from "vue-router";
 
 export default async function useCurrentWeatherDataForRender(
   lat: string | undefined,
-  lon: string | undefined
+  lon: string | undefined,
+  cityFullName: string | undefined
 ) {
   const currentWeatherData = await useOpenWeatherData<CurrentWeatherData>(
     lat,
@@ -15,6 +16,7 @@ export default async function useCurrentWeatherDataForRender(
   );
 
   const currentWeatherDataForRender: CurrentWeatherDataForRender = {
+    city_full_name: cityFullName,
     dateArr: dateAndTimeForRemote(
       currentWeatherData.dt,
       currentWeatherData.timezone
