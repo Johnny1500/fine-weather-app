@@ -9,7 +9,7 @@
       </RouterLink>
       <div class="flex flex-1 justify-end gap-3">
         <i
-          class="fa-solid fa-circle-info text-xl hover:text-weather-green duration-150 cursor-pointer"
+          class="fa-solid fa-circle-info text-2xl hover:text-weather-green duration-150 cursor-pointer"
           @click="toggleModal"
         ></i>        
       </div>
