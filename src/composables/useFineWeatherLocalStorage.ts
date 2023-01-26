@@ -29,7 +29,7 @@ export function setFineWeatherCityItemToLocalStorage(
 
   resultArr.push(savedCityItem);
 
-  if (resultArr.length >= 3) {
+  if (resultArr.length > 3) {
     resultArr.shift();
   }
 

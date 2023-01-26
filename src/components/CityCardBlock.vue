@@ -1,15 +1,16 @@
 <template>
-  <div class="mt-5">
+  <div class="mt-10">
     <div v-if="!loadingWeatherData">
       <div
         v-if="currentWeatherDataForRenderArr.length > 0"
-        class="flex flex-col sm:flex-row items-center justify-center gap-5"
+        class="flex flex-col lg:flex-row items-center justify-center gap-5"
       >
-        <section class="bg-stone-100 shadow-inner rounded-lg p-4" v-for="(item, index) in currentWeatherDataForRenderArr">
+        <section class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4" v-for="(item, index) in currentWeatherDataForRenderArr">
           <CityCurrentWeatherCard
             :current-weather-data-for-render="item"
             :city-full-name="item.city_full_name"
             :saved-to-local-storage="true"
+            :home-view="true"
           />
         </section>
       </div>

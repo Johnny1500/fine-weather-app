@@ -14,13 +14,21 @@
       >
         <i class="fa-solid fa-plus"></i>
       </button>
-      <button
-        @click="handleRemoveItem"
-        class="w-8 h-8 absolute top-1 right-1 text-xl hover:bg-red-500 hover:text-white duration-150 cursor-pointer rounded-full"
-        v-if="savedToLocalStorageCityCard"
-      >
-        <i class="fa-solid fa-trash"></i>
-      </button>
+      <div class="absolute flex flex-row top-1 right-1">
+        <button
+          class="w-8 h-8 text-xl hover:bg-weather-green hover:text-white duration-150 cursor-pointer rounded-full"
+          v-if="homeView"
+        >
+          <i class="fa-solid fa-circle-info"></i>
+        </button>
+        <button
+          @click="handleRemoveItem"
+          class="w-8 h-8 text-xl hover:bg-red-500 hover:text-white duration-150 cursor-pointer rounded-full"
+          v-if="savedToLocalStorageCityCard"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
     </div>
 
     <div class="max-h-fit py-3">
@@ -52,10 +60,12 @@
             alt="wind"
             class="w-8"
           />
-          <p>
-            {{ currentWeatherDataForRender?.wind_speed }},
-            {{ currentWeatherDataForRender?.wind_direction }}
-          </p>
+          <div>
+            <div>{{ currentWeatherDataForRender?.wind_speed }},</div>
+            <p>
+              {{ currentWeatherDataForRender?.wind_direction }}
+            </p>
+          </div>
         </div>
         <div class="flex flex-row items-center">
           <img
@@ -89,30 +99,38 @@ import { ref, toRefs } from "vue";
 
 import { getImageUrl } from "@/utility";
 
-const emit = defineEmits(["setItemToLocalStorage", "removeItemFromLocalStorage"]);
+const emit = defineEmits([
+  "setItemToLocalStorage",
+  "removeItemFromLocalStorage",
+]);
 const props = withDefaults(
   defineProps<{
     currentWeatherDataForRender: CurrentWeatherDataForRender | null;
-    cityFullName: string | undefined;   
+    cityFullName: string | undefined;
     savedToLocalStorage?: boolean;
+    homeView?: boolean;
   }>(),
   {
     savedToLocalStorage: false,
+    homeView: false,
   }
 );
 
-const { currentWeatherDataForRender, cityFullName, savedToLocalStorage } = toRefs(props);
-const savedToLocalStorageCityCard = ref(savedToLocalStorage.value)
+const {
+  currentWeatherDataForRender,
+  cityFullName,
+  savedToLocalStorage,
+  homeView,
+} = toRefs(props);
+const savedToLocalStorageCityCard = ref(savedToLocalStorage.value);
 
-const handleSetItem = ():void => {
-  emit('setItemToLocalStorage', cityFullName.value);
+const handleSetItem = (): void => {
+  emit("setItemToLocalStorage", cityFullName.value);
   savedToLocalStorageCityCard.value = true;
-}
+};
 
-const handleRemoveItem = ():void => {
-  emit('removeItemFromLocalStorage', cityFullName.value);
+const handleRemoveItem = (): void => {
+  emit("removeItemFromLocalStorage", cityFullName.value);
   savedToLocalStorageCityCard.value = false;
-}
-
-
+};
 </script>
