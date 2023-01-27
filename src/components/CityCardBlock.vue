@@ -5,12 +5,18 @@
         v-if="currentWeatherDataForRenderArr.length > 0"
         class="flex flex-col lg:flex-row items-center justify-center gap-5"
       >
-        <section class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4" v-for="(item, index) in currentWeatherDataForRenderArr">
+        <section
+          class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4"
+          v-for="(item, index) in currentWeatherDataForRenderArr"
+        >
           <CityCurrentWeatherCard
             :current-weather-data-for-render="item"
             :city-full-name="item.city_full_name"
             :saved-to-local-storage="true"
             :home-view="true"
+            @remove-item-from-local-storage="
+              removeWeatherCityItemFromLocalStorageFromHomeView
+            "
           />
         </section>
       </div>
@@ -47,6 +53,25 @@ const currentWeatherDataForRenderArr: Ref<CurrentWeatherDataForRender[]> = ref(
   []
 );
 
+const removeWeatherCityItemFromLocalStorageFromHomeView = (
+  cityItemFullName: string
+): void => {
+  fineWeatherCitiesLocalStorage.value = removeWeatherCityItemFromLocalStorage(
+    cityItemFullName,
+    fineWeatherCitiesLocalStorage.value
+  );
+
+  currentWeatherDataForRenderArr.value =
+    currentWeatherDataForRenderArr.value.filter(
+      (city) => city.city_full_name !== cityItemFullName
+    );
+
+  console.log(
+    "currentWeatherDataForRenderArr.value ==",
+    currentWeatherDataForRenderArr.value
+  );
+};
+
 const loadingWeatherData = ref(false);
 
 onMounted(async () => {
@@ -78,5 +103,3 @@ onMounted(async () => {
   loadingWeatherData.value = false;
 });
 </script>
-
-<style scoped></style>

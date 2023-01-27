@@ -32,7 +32,7 @@
     </div>
 
     <div class="max-h-fit py-3">
-      <div class="flex flex-row items-center gap-3">
+      <div class="flex flex-row items-center justify-evenly">
         <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
         <img
           :src="
@@ -45,47 +45,50 @@
           class="w-12"
         />
         <div class="text-xl">
-          <p class="first-letter:uppercase">
+          <p class="first-letter:uppercase inline whitespace-nowrap">
             {{ currentWeatherDataForRender?.weather_description }}
           </p>
           <p>Feels like {{ currentWeatherDataForRender?.feels_like }}</p>
         </div>
       </div>
       <div
-        class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5 pt-5"
+        class="flex flex-col w-fit items-start gap-2 sm:flex-row sm:items-center sm:gap-3 pt-5"
       >
         <div class="flex flex-row items-center gap-2">
           <img
             src="../assets/weather-kind-pictures/wind.png"
             alt="wind"
-            class="w-8"
+            class="w-8 h-8"
           />
-          <div>
-            <div>{{ currentWeatherDataForRender?.wind_speed }},</div>
-            <p>
-              {{ currentWeatherDataForRender?.wind_direction }}
+          <div class="inline whitespace-nowrap">
+            <p>{{ currentWeatherDataForRender?.wind_speed }}</p>
+            <p>{{ currentWeatherDataForRender?.wind_direction }}</p>
+          </div>
+        </div>
+
+        <div class="mr-0 -ml-1 min-w-fit">
+          <div class="inline whitespace-nowrap">
+            <img
+              src="../assets/weather-kind-pictures/humidity.png"
+              alt="humidity"
+              class="w-8 inline"
+            />
+            <p class="inline">
+              {{ currentWeatherDataForRender?.humidity }}
             </p>
           </div>
         </div>
-        <div class="mx-0 w-full max-w-fit">
-          <img
-            src="../assets/weather-kind-pictures/humidity.png"
-            alt="humidity"
-            class="w-8 inline"
-          />
-          <p class="inline">
-            {{ currentWeatherDataForRender?.humidity }}
-          </p>
-        </div>
-        <div class="mx-0 w-full max-w-fit">
-          <img
-            src="../assets/weather-kind-pictures/pressure.png"
-            alt="pressure"
-            class="w-8 inline mr-2"
-          />
-          <p class="inline">
-            {{ currentWeatherDataForRender?.pressure }}
-          </p>
+        <div class="mx-0 min-w-fit">
+          <div class="inline whitespace-nowrap">
+            <img
+              src="../assets/weather-kind-pictures/pressure.png"
+              alt="pressure"
+              class="w-8 inline mr-1"
+            />
+            <p class="inline">
+              {{ currentWeatherDataForRender?.pressure }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -135,16 +138,4 @@ const handleRemoveItem = (): void => {
 };
 </script>
 
-<style scoped>
-.container-weather-parameter {
-  max-width: fit-content;
-  margin-left: 0;
-  margin-right: 0;
-  width: 100%;
-}
 
-.unit {
-  display: inline-block;
-}
-
-</style>
