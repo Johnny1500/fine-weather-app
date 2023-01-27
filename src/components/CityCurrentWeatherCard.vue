@@ -67,23 +67,23 @@
             </p>
           </div>
         </div>
-        <div class="flex flex-row items-center">
+        <div class="mx-0 w-full max-w-fit">
           <img
             src="../assets/weather-kind-pictures/humidity.png"
             alt="humidity"
-            class="w-8"
+            class="w-8 inline"
           />
-          <p>
+          <p class="inline">
             {{ currentWeatherDataForRender?.humidity }}
           </p>
         </div>
-        <div class="flex flex-row items-center gap-2">
+        <div class="mx-0 w-full max-w-fit">
           <img
             src="../assets/weather-kind-pictures/pressure.png"
             alt="pressure"
-            class="w-8"
+            class="w-8 inline mr-2"
           />
-          <p>
+          <p class="inline">
             {{ currentWeatherDataForRender?.pressure }}
           </p>
         </div>
@@ -134,3 +134,17 @@ const handleRemoveItem = (): void => {
   savedToLocalStorageCityCard.value = false;
 };
 </script>
+
+<style scoped>
+.container-weather-parameter {
+  max-width: fit-content;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.unit {
+  display: inline-block;
+}
+
+</style>

@@ -14,7 +14,7 @@
           />
         </section>
       </div>
-      <div v-else>
+      <div v-else class="flex items-center justify-center">
         <p class="text-xl">You haven't saved cities yet</p>
       </div>
     </div>
