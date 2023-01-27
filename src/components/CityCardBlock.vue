@@ -25,9 +25,14 @@
         <p class="text-xl">You haven't saved cities yet</p>
       </div>
     </div>
-    <div v-else>
-      <p class="text-xl">Loading...</p>
-    </div>
+    <section
+      v-else
+      class="flex flex-col lg:flex-row items-center justify-center gap-5"
+    >
+      <div v-for="item in Array.from({ length: 3 })">
+        <CartSkeleton />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -48,6 +53,7 @@ import {
 } from "@/composables/useFineWeatherLocalStorage";
 
 import CityCurrentWeatherCard from "@/components/CityCurrentWeatherCard.vue";
+import CartSkeleton from "./CartSkeleton.vue";
 
 const router = useRouter();
 
@@ -120,6 +126,8 @@ onMounted(async () => {
   );
   console.groupEnd();
 
-  loadingWeatherData.value = false;
+  setTimeout(() =>  loadingWeatherData.value = false, 300)
+
+  // loadingWeatherData.value = false;
 });
 </script>
