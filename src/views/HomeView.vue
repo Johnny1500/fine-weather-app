@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-[5rem]">
+  <div class="container my-[5rem]">
     <div class="flex flex-row justify-center mb-4">
       <img src="../assets/cloudy-day.png" alt="logo" class="w-36 sm:w-48" />
     </div>
