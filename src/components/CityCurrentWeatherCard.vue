@@ -16,6 +16,7 @@
       </button>
       <div class="absolute flex flex-row top-1 right-1">
         <button
+          @click="handleCheckFullInfo"
           class="w-8 h-8 text-xl hover:bg-weather-green hover:text-white duration-150 cursor-pointer rounded-full"
           v-if="homeView"
         >
@@ -66,14 +67,14 @@
           </div>
         </div>
 
-        <div class="mr-0 -ml-1 min-w-fit">
+        <div class="-ml-1 min-w-fit">
           <div class="inline whitespace-nowrap">
             <img
               src="../assets/weather-kind-pictures/humidity.png"
               alt="humidity"
               class="w-8 inline"
             />
-            <p class="inline">
+            <p class="inline -ml-1">
               {{ currentWeatherDataForRender?.humidity }}
             </p>
           </div>
@@ -105,6 +106,7 @@ import { getImageUrl } from "@/utility";
 const emit = defineEmits([
   "setItemToLocalStorage",
   "removeItemFromLocalStorage",
+  "checkFullInfo",
 ]);
 const props = withDefaults(
   defineProps<{
@@ -136,6 +138,8 @@ const handleRemoveItem = (): void => {
   emit("removeItemFromLocalStorage", cityFullName.value);
   savedToLocalStorageCityCard.value = false;
 };
+
+const handleCheckFullInfo = (): void => {
+  emit("checkFullInfo", cityFullName.value);
+};
 </script>
-
-

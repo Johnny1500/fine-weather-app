@@ -17,6 +17,7 @@
             @remove-item-from-local-storage="
               removeWeatherCityItemFromLocalStorageFromHomeView
             "
+            @check-full-info="checkCityView"
           />
         </section>
       </div>
@@ -37,7 +38,7 @@ import type {
   CityLocalStorageItem,
 } from "../interfaces";
 
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
 import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
@@ -47,6 +48,8 @@ import {
 } from "@/composables/useFineWeatherLocalStorage";
 
 import CityCurrentWeatherCard from "@/components/CityCurrentWeatherCard.vue";
+
+const router = useRouter();
 
 const fineWeatherCitiesLocalStorage: Ref<CityLocalStorageItem[]> = ref([]);
 const currentWeatherDataForRenderArr: Ref<CurrentWeatherDataForRender[]> = ref(
@@ -70,6 +73,23 @@ const removeWeatherCityItemFromLocalStorageFromHomeView = (
     "currentWeatherDataForRenderArr.value ==",
     currentWeatherDataForRenderArr.value
   );
+};
+
+const checkCityView = (cityItemFullName: string): void => {
+  const cityObjFromLocalStorage = fineWeatherCitiesLocalStorage.value.find(
+    (city) => city.cityItemFullName === cityItemFullName
+  );
+
+  console.log("cityObjFromLocalStorage", cityObjFromLocalStorage);
+
+  router.push({
+    path: `city/${cityItemFullName.split(",")[0]}`,
+    query: {
+      lat: cityObjFromLocalStorage?.lat,
+      lon: cityObjFromLocalStorage?.lon,
+      fullName: cityItemFullName,
+    },
+  });
 };
 
 const loadingWeatherData = ref(false);
