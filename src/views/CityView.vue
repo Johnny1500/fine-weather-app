@@ -62,7 +62,7 @@
       </section>
     </div>
     <div v-else>
-      <WeatherSkeleton />
+      <CartSkeletonWithForecast />
     </div>
   </div>
 </template>
@@ -89,7 +89,7 @@ import {
 import Carousel from "@/components/Carousel.vue";
 import Slide from "@/components/Slide.vue";
 import ForecastTable from "@/components/ForecastTable.vue";
-import WeatherSkeleton from "@/components/WeatherSkeleton.vue";
+import CartSkeletonWithForecast from "@/components/CartSkeletonWithForecast.vue";
 import CityCurrentWeatherCard from "@/components/CityCurrentWeatherCard.vue";
 
 const route = useRoute();
@@ -180,7 +180,9 @@ onMounted(async () => {
   );
   console.groupEnd();
 
-  loadingWeatherData.value = false;
+  setTimeout(() =>  loadingWeatherData.value = false, 300)
+
+  // loadingWeatherData.value = false;
 });
 </script>
 

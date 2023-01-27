@@ -1,5 +1,5 @@
 <template>
-  <div v-once class="animate-pulse w-[18rem] sm:w-[23.75rem]">
+  <div v-once class="animate-pulse w-[18rem] sm:w-[21.5rem]">
     <section
       class="bg-stone-100 shadow-inner rounded-lg p-4 mt-3 divide-gray-400 divide-y-2"
     >
@@ -15,7 +15,7 @@
       </div>
       <div class="pt-3">
         <div
-          v-for="item in Array.from({ length: 8 })"
+          v-for="item in Array.from({ length: 7 })"
           class="h-5 rounded-full bg-weather-primary mb-3"
         ></div>
       </div>
