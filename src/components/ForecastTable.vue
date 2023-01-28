@@ -26,7 +26,7 @@
               alt="current weather"
               class="w-8"
             />
-            <p class="ml-3">
+            <p class="ml-3 whitespace-nowrap">
               {{ item.weather_description }}
             </p>
           </td>          
