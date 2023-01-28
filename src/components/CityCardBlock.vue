@@ -4,7 +4,7 @@
       <div
         v-if="currentWeatherDataForRenderArr.length > 0"
         class="flex flex-col lg:flex-row items-center justify-center gap-5"
-      >       
+      >
         <section
           class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4"
           v-for="item in currentWeatherDataForRenderArr"
@@ -50,7 +50,7 @@ import type {
 } from "../interfaces";
 
 import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
 import {
@@ -106,8 +106,16 @@ const checkCityView = (cityItemFullName: string): void => {
 
 const loadingWeatherData = ref(false);
 
-onMounted(async () => {
+// Long-pull for open weather API
+let timerLongPullOpenWeather: ReturnType<typeof setTimeout> | null = null;
+
+// Delay for showing skeleton
+let timerForSkeletonDelay: ReturnType<typeof setTimeout> | null = null;
+
+onMounted(async function loadWeatherData() {
   loadingWeatherData.value = true;
+
+  timerLongPullOpenWeather = timerForSkeletonDelay = null;
 
   fineWeatherCitiesLocalStorage.value = getFineWeatherCitiesFromLocalStorage();
 
@@ -120,7 +128,13 @@ onMounted(async () => {
 
   currentWeatherDataForRenderArr.value = await Promise.all(promises);
 
-  console.group("City Block values");
+  timerForSkeletonDelay = setTimeout(
+    () => (loadingWeatherData.value = false),
+    300
+  );
+  timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
+
+  console.group("City Block values onMounted");
   console.log(
     "fineWeatherCitiesLocalStorage.value === ",
     fineWeatherCitiesLocalStorage.value
@@ -130,10 +144,27 @@ onMounted(async () => {
     "currentWeatherDataForRenderArr.value",
     currentWeatherDataForRenderArr.value
   );
+  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
   console.groupEnd();
 
-  setTimeout(() => (loadingWeatherData.value = false), 300);
- 
   // loadingWeatherData.value = false;
+});
+
+onUnmounted(() => {
+  console.group("City Block values unMounted 1");
+  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  console.groupEnd();
+
+  if (timerForSkeletonDelay) clearTimeout(timerForSkeletonDelay);
+  if (timerLongPullOpenWeather) clearTimeout(timerLongPullOpenWeather);
+
+  timerLongPullOpenWeather = timerForSkeletonDelay = null;
+
+  console.group("City Block values unMounted 2");
+  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  console.groupEnd();
 });
 </script>
