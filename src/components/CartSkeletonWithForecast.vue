@@ -1,5 +1,5 @@
 <template>
-  <div v-once class="animate-pulse w-[18rem] sm:w-[21.5rem]">
+  <div v-once class="animate-pulse w-[18.5rem]">
     <section
       class="bg-stone-100 shadow-inner rounded-lg p-4 mt-3 divide-gray-400 divide-y-2"
     >
