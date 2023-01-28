@@ -13,7 +13,7 @@
       <tbody class="text-base">
         <tr v-for="item in forecastWeatherDayDataForRender">
           <td class="px-2 pt-2">
-            {{ item.dateArr[4] }}
+            {{ item.dateArr[4] === "24:00" ? "0:00" : item.dateArr[4] }}
           </td>
           <td class="pr-4 pt-2">
             {{ item.temp }}
@@ -29,7 +29,7 @@
             <p class="ml-3 whitespace-nowrap">
               {{ item.weather_description }}
             </p>
-          </td>          
+          </td>
         </tr>
       </tbody>
     </table>
@@ -54,4 +54,11 @@ const props = withDefaults(
 );
 
 const { forecastWeatherDayDataForRender, showTitle } = toRefs(props);
+
+console.group("ForecastTable values");
+console.log(
+  "forecastWeatherDayDataForRender.value",
+  forecastWeatherDayDataForRender.value
+);
+console.groupEnd();
 </script>
