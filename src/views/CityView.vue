@@ -78,7 +78,7 @@ import type {
 } from "../interfaces";
 
 import { useRoute } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 import useCurrentWeatherDataForRender from "@/composables/useCurrentWeatherDataForRender";
 import useForecastWeatherDataForRender from "@/composables/useForecastWeatherDataForRender";
@@ -140,8 +140,16 @@ const removeWeatherCityItemFromLocalStorageFromCityView = (
   );
 };
 
-onMounted(async () => {
+// Long-pull for open weather API
+let timerLongPullOpenWeather: ReturnType<typeof setTimeout> | null = null;
+
+// Delay for showing skeleton
+let timerForSkeletonDelay: ReturnType<typeof setTimeout> | null = null;
+
+onMounted(async function loadWeatherData () {
   loadingWeatherData.value = true;
+
+  timerLongPullOpenWeather = timerForSkeletonDelay = null;
 
   currentWeatherDataForRender.value = await useCurrentWeatherDataForRender(
     lat.value?.toLocaleString(),
@@ -162,7 +170,7 @@ onMounted(async () => {
     }
   });
 
-  console.group("City view ref values");
+  console.group("City View values onMounted");
   console.log(
     "currentWeatherDataForRender.value === ",
     currentWeatherDataForRender.value
@@ -181,10 +189,29 @@ onMounted(async () => {
   );
   console.groupEnd();
 
-  setTimeout(() => (loadingWeatherData.value = false), 300);
+  timerForSkeletonDelay = setTimeout(() => (loadingWeatherData.value = false), 300);
+  timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
 
   // loadingWeatherData.value = false;
 });
+
+onUnmounted(() => {
+  console.group("City View values unMounted 1");
+  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  console.groupEnd();
+
+  if (timerForSkeletonDelay) clearTimeout(timerForSkeletonDelay);
+  if (timerLongPullOpenWeather) clearTimeout(timerLongPullOpenWeather);
+
+  timerLongPullOpenWeather = timerForSkeletonDelay = null;
+
+  console.group("City View values unMounted 2");
+  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  console.groupEnd();
+});
+
 </script>
 
 <style lang="scss" scoped></style>

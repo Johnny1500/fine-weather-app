@@ -134,7 +134,7 @@ onMounted(async function loadWeatherData() {
   );
   timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
 
-  console.group("City Block values onMounted");
+  console.group("Home view city block values onMounted");
   console.log(
     "fineWeatherCitiesLocalStorage.value === ",
     fineWeatherCitiesLocalStorage.value
@@ -152,7 +152,7 @@ onMounted(async function loadWeatherData() {
 });
 
 onUnmounted(() => {
-  console.group("City Block values unMounted 1");
+  console.group("Home view city block values 1");
   console.log("timerForSkeletonDelay", timerForSkeletonDelay);
   console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
   console.groupEnd();
@@ -162,7 +162,7 @@ onUnmounted(() => {
 
   timerLongPullOpenWeather = timerForSkeletonDelay = null;
 
-  console.group("City Block values unMounted 2");
+  console.group("Home view city block values 2");
   console.log("timerForSkeletonDelay", timerForSkeletonDelay);
   console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
   console.groupEnd();
