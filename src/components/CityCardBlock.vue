@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10">
+  <div class="mt-12">
     <div v-if="!loadingWeatherData">
       <div
         v-if="currentWeatherDataForRenderArr.length > 0"

@@ -4,12 +4,9 @@
       <img src="../assets/cloudy-day.png" alt="logo" class="w-36 sm:w-48" />
     </div>
     <div
-      class="bg-weather-primary flex flex-col justify-center items-start rounded-xl sm:w-3/4 sm:ml-[12%] md:w-1/2 md:ml-[25%]"
-      :class="`${
-        cityInput.length > 0 ? 'bg-weather-secondary' : 'bg-weather-primary'
-      }`"
+      class="flex flex-col justify-center items-start sm:w-3/4 sm:ml-[12%] md:w-1/2 md:ml-[25%]"
     >
-      <div class="input-wrapper w-full">
+      <div class="input-wrapper w-full mb-2">
         <input
           type="text"
           placeholder="Search for city"
@@ -20,10 +17,13 @@
       <div
         v-show="cityInput.length > 0"
         id="selected-cities-array"
-        class="w-full"
+        class="relative w-full"
       >
         <div v-if="!loadingCities">
-          <ul v-if="selectedGeoDBCities.length > 0">
+          <ul
+            v-if="selectedGeoDBCities.length > 0"
+            class="absolute z-10 w-full rounded-lg bg-weather-secondary"
+          >
             <li
               v-for="(item, index) in selectedGeoDBCities"
               :key="item['id']"
@@ -46,28 +46,32 @@
             <p v-else class="text-xl">There is no such city. Try again.</p>
           </div>
         </div>
-        <div v-else class="flex items-center justify-center pb-3">
-          <svg
-            class="animate-spin -ml-1 mr-3 h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
+        <div v-else class="relative w-full">
+          <div
+            class="absolute flex items-center justify-center py-3 z-10 w-full rounded-lg bg-weather-secondary"
           >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-          <p class="text-xl">Loading...</p>
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            <p class="text-xl">Loading...</p>
+          </div>
         </div>
       </div>
     </div>
@@ -87,11 +91,11 @@ import CityCardBlock from "@/components/CityCardBlock.vue";
 
 const router = useRouter();
 
-let selectedGeoDBCities = ref([]);
-let cityInput = ref("");
-let loadingCities = ref(false);
-let errorResponse = ref(false);
-let selectedCityKeyboard: Ref<number | null> = ref(null);
+const selectedGeoDBCities = ref([]);
+const cityInput = ref("");
+const loadingCities = ref(false);
+const errorResponse = ref(false);
+const selectedCityKeyboard: Ref<number | null> = ref(null);
 
 async function searchFromGeoDB(newCityInput: string) {
   try {
@@ -212,7 +216,6 @@ onUnmounted(() => {
   position: relative;
   left: 1rem;
   content: "\f002";
-  z-index: 1;
+  z-index: 1;  
 }
-
 </style>
