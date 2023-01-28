@@ -15,8 +15,9 @@
       </div>
       <div class="pt-3">
         <div
-          v-for="item in Array.from({ length: 7 })"
+          v-for="(item, index) in Array.from({ length: 7 })"
           class="h-5 rounded-full bg-weather-primary mb-3"
+          :key="index"
         ></div>
       </div>
     </section>
@@ -28,8 +29,9 @@
         <div class="h-[1.5rem] rounded-full bg-weather-primary"></div>
         <div class="pt-3">
           <div
-            v-for="item in Array.from({ length: 8 })"
+            v-for="(item, index) in Array.from({ length: 8 })"
             class="h-5 rounded-full bg-weather-primary mb-3"
+            :key="index"
           ></div>
         </div>
         <div class="relative mt-8 h-[2rem] flex justify-center">
@@ -39,11 +41,16 @@
         </div>
       </div>
       <div class="block md:hidden pt-1 divide-gray-400 divide-y-2">
-        <div v-for="item in Array.from({ length: 5 })" class="pt-3">
+        <div
+          v-for="(item, index) in Array.from({ length: 5 })"
+          class="pt-3"
+          :key="index"
+        >
           <div class="h-[1.5rem] rounded-full bg-weather-primary mb-3"></div>
           <div
-            v-for="item in Array.from({ length: 8 })"
+            v-for="(item, index) in Array.from({ length: 8 })"
             class="h-5 rounded-full bg-weather-primary mb-2"
+            :key="index"
           ></div>
         </div>
       </div>

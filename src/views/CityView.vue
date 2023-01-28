@@ -52,6 +52,7 @@
           <p
             v-for="slide in forecastWeatherDataForRender.slice(1)"
             class="py-2"
+            :key="slide[0].dt"
           >
             <ForecastTable
               :forecast-weather-day-data-for-render="slide"
@@ -136,7 +137,6 @@ const removeWeatherCityItemFromLocalStorageFromCityView = (
     "fineWeatherCitiesLocalStorage.value === ",
     fineWeatherCitiesLocalStorage.value
   );
-
 };
 
 onMounted(async () => {
@@ -180,7 +180,7 @@ onMounted(async () => {
   );
   console.groupEnd();
 
-  setTimeout(() =>  loadingWeatherData.value = false, 300)
+  setTimeout(() => (loadingWeatherData.value = false), 300);
 
   // loadingWeatherData.value = false;
 });
