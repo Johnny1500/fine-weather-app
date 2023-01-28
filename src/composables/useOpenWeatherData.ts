@@ -7,11 +7,23 @@ export default async function useOpenWeatherData<T>(
   kind: string
 ): Promise<T> {
   let weatherData;
+  let timerId: ReturnType<typeof setTimeout> | null = null;
 
   try {
+    const controller = new AbortController();
+
+    timerId = setTimeout(async () => {
+      controller.abort();
+      await useOpenWeatherData(lat, lon, kind);
+    }, 10000);
+
     const response = await fetch(
-      `${OPEN_WEATHER_API_URL}/${kind}?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}&units=metric`
+      `${OPEN_WEATHER_API_URL}/${kind}?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}&units=metric`,
+      { signal: controller.signal }
     );
+
+    clearTimeout(timerId);
+    timerId = null;
 
     weatherData = await response.json();
   } catch (error) {
