@@ -4,7 +4,7 @@
       <div
         v-if="currentWeatherDataForRenderArr.length > 0"
         class="flex flex-col lg:flex-row items-center justify-center gap-5"
-      >
+      >       
         <section
           class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4"
           v-for="item in currentWeatherDataForRenderArr"
@@ -30,7 +30,12 @@
       v-else
       class="flex flex-col lg:flex-row items-center justify-center gap-5"
     >
-      <div v-for="(item, index) in Array.from({ length: 3 })" :key="index">
+      <div
+        v-for="(item, index) in Array.from({
+          length: fineWeatherCitiesLocalStorage.length,
+        })"
+        :key="index"
+      >
         <CartSkeleton />
       </div>
     </section>
@@ -128,7 +133,7 @@ onMounted(async () => {
   console.groupEnd();
 
   setTimeout(() => (loadingWeatherData.value = false), 300);
-
+ 
   // loadingWeatherData.value = false;
 });
 </script>
