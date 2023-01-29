@@ -17,7 +17,7 @@ import SiteNavigation from "./components/SiteNavigation.vue";
 <style>
 .page-enter-active,
 .page-leave-active {
-  transition: 600ms ease all;
+  transition: 500ms ease all;
 }
 
 .page-enter-from,
