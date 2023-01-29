@@ -189,7 +189,7 @@ onMounted(async function loadWeatherData () {
   );
   console.groupEnd();
 
-  timerForSkeletonDelay = setTimeout(() => (loadingWeatherData.value = false), 300);
+  timerForSkeletonDelay = setTimeout(() => (loadingWeatherData.value = false), 500);
   timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
 
   // loadingWeatherData.value = false;

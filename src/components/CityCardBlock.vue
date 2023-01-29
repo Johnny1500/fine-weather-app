@@ -106,7 +106,7 @@ const checkCityView = (cityItemFullName: string): void => {
 
 const loadingWeatherData = ref(false);
 
-// Long-pull for open weather API
+// Long-pull for open Weather API
 let timerLongPullOpenWeather: ReturnType<typeof setTimeout> | null = null;
 
 // Delay for showing skeleton
@@ -130,7 +130,7 @@ onMounted(async function loadWeatherData() {
 
   timerForSkeletonDelay = setTimeout(
     () => (loadingWeatherData.value = false),
-    300
+    500
   );
   timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
 
