@@ -134,37 +134,37 @@ onMounted(async function loadWeatherData() {
   );
   timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
 
-  console.group("Home view city block values onMounted");
-  console.log(
-    "fineWeatherCitiesLocalStorage.value === ",
-    fineWeatherCitiesLocalStorage.value
-  );
-  console.log("promises", promises);
-  console.log(
-    "currentWeatherDataForRenderArr.value",
-    currentWeatherDataForRenderArr.value
-  );
-  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  console.groupEnd();
+  // console.group("Home view city block values onMounted");
+  // console.log(
+  //   "fineWeatherCitiesLocalStorage.value === ",
+  //   fineWeatherCitiesLocalStorage.value
+  // );
+  // console.log("promises", promises);
+  // console.log(
+  //   "currentWeatherDataForRenderArr.value",
+  //   currentWeatherDataForRenderArr.value
+  // );
+  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  // console.groupEnd();
 
   // loadingWeatherData.value = false;
 });
 
 onUnmounted(() => {
-  console.group("Home view city block values 1");
-  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  console.groupEnd();
+  // console.group("Home view city block values 1");
+  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  // console.groupEnd();
 
   if (timerForSkeletonDelay) clearTimeout(timerForSkeletonDelay);
   if (timerLongPullOpenWeather) clearTimeout(timerLongPullOpenWeather);
 
   timerLongPullOpenWeather = timerForSkeletonDelay = null;
 
-  console.group("Home view city block values 2");
-  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  console.groupEnd();
+  // console.group("Home view city block values 2");
+  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  // console.groupEnd();
 });
 </script>

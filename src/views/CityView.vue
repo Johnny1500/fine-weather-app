@@ -170,24 +170,24 @@ onMounted(async function loadWeatherData () {
     }
   });
 
-  console.group("City View values onMounted");
-  console.log(
-    "currentWeatherDataForRender.value === ",
-    currentWeatherDataForRender.value
-  );
-  console.log(
-    "forecastWeatherDataForRender.value === ",
-    forecastWeatherDataForRender.value
-  );
-  console.log(
-    "fineWeatherCitiesLocalStorage.value === ",
-    fineWeatherCitiesLocalStorage.value
-  );
-  console.log(
-    "citySavedToLocalStorage.value === ",
-    citySavedToLocalStorage.value
-  );
-  console.groupEnd();
+  // console.group("City View values onMounted");
+  // console.log(
+  //   "currentWeatherDataForRender.value === ",
+  //   currentWeatherDataForRender.value
+  // );
+  // console.log(
+  //   "forecastWeatherDataForRender.value === ",
+  //   forecastWeatherDataForRender.value
+  // );
+  // console.log(
+  //   "fineWeatherCitiesLocalStorage.value === ",
+  //   fineWeatherCitiesLocalStorage.value
+  // );
+  // console.log(
+  //   "citySavedToLocalStorage.value === ",
+  //   citySavedToLocalStorage.value
+  // );
+  // console.groupEnd();
 
   timerForSkeletonDelay = setTimeout(() => (loadingWeatherData.value = false), 500);
   timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
@@ -196,20 +196,20 @@ onMounted(async function loadWeatherData () {
 });
 
 onUnmounted(() => {
-  console.group("City View values unMounted 1");
-  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  console.groupEnd();
+  // console.group("City View values unMounted 1");
+  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  // console.groupEnd();
 
   if (timerForSkeletonDelay) clearTimeout(timerForSkeletonDelay);
   if (timerLongPullOpenWeather) clearTimeout(timerLongPullOpenWeather);
 
   timerLongPullOpenWeather = timerForSkeletonDelay = null;
 
-  console.group("City View values unMounted 2");
-  console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  console.groupEnd();
+  // console.group("City View values unMounted 2");
+  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+  // console.groupEnd();
 });
 
 </script>
