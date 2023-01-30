@@ -1,31 +1,37 @@
 <template>
   <div class="mt-12">
     <div v-if="!loadingWeatherData">
-      <div
-        v-if="currentWeatherDataForRenderArr.length > 0"
-        class="flex flex-col lg:flex-row items-center justify-center gap-5"
-      >
-        <section
-          class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4"
-          v-for="item in currentWeatherDataForRenderArr"
-          :key="item.city_full_name"
+      <div v-if="!errorResponse">
+        <div
+          v-if="currentWeatherDataForRenderArr.length > 0"
+          class="flex flex-col lg:flex-row items-center justify-center gap-5"
         >
-          <CityCurrentWeatherCard
-            :current-weather-data-for-render="item"
-            :city-full-name="item.city_full_name"
-            :saved-to-local-storage="true"
-            :home-view="true"
-            @remove-item-from-local-storage="
-              removeWeatherCityItemFromLocalStorageFromHomeView
-            "
-            @check-full-info="checkCityView"
-          />
-        </section>
+          <section
+            class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4"
+            v-for="item in currentWeatherDataForRenderArr"
+            :key="item.city_full_name"
+          >
+            <CityCurrentWeatherCard
+              :current-weather-data-for-render="item"
+              :city-full-name="item.city_full_name"
+              :saved-to-local-storage="true"
+              :home-view="true"
+              @remove-item-from-local-storage="
+                removeWeatherCityItemFromLocalStorageFromHomeView
+              "
+              @check-full-info="checkCityView"
+            />
+          </section>
+        </div>
+        <div v-else class="flex items-center justify-center mt-10">
+          <p class="text-xl">You haven't saved cities yet</p>
+        </div>
       </div>
-      <div v-else class="flex items-center justify-center mt-10">
-        <p class="text-xl">You haven't saved cities yet</p>
-      </div>
+      <p v-else class="text-xl mt-32 place-self-center">
+        Error during fetch cities info. Try again later.
+      </p>
     </div>
+
     <section
       v-else
       class="flex flex-col lg:flex-row items-center justify-center gap-5"
@@ -105,6 +111,7 @@ const checkCityView = (cityItemFullName: string): void => {
 };
 
 const loadingWeatherData = ref(false);
+const errorResponse = ref(false);
 
 // Long-pull for open Weather API
 let timerLongPullOpenWeather: ReturnType<typeof setTimeout> | null = null;
@@ -113,54 +120,64 @@ let timerLongPullOpenWeather: ReturnType<typeof setTimeout> | null = null;
 let timerForSkeletonDelay: ReturnType<typeof setTimeout> | null = null;
 
 onMounted(async function loadWeatherData() {
-  loadingWeatherData.value = true;
+  try {
+    loadingWeatherData.value = true;
+    errorResponse.value = false;
 
-  timerLongPullOpenWeather = timerForSkeletonDelay = null;
+    timerLongPullOpenWeather = timerForSkeletonDelay = null;
 
-  fineWeatherCitiesLocalStorage.value = getFineWeatherCitiesFromLocalStorage();
+    fineWeatherCitiesLocalStorage.value =
+      getFineWeatherCitiesFromLocalStorage();
 
-  if (fineWeatherCitiesLocalStorage.value.length > 0) {
-    const promises: Promise<CurrentWeatherDataForRender>[] =
-      fineWeatherCitiesLocalStorage.value.map(
-        ({ lat, lon, cityItemFullName }: CityLocalStorageItem) => {
-          return useCurrentWeatherDataForRender(lat, lon, cityItemFullName);
-        }
+    if (fineWeatherCitiesLocalStorage.value.length > 0) {
+      const promises: Promise<CurrentWeatherDataForRender>[] =
+        fineWeatherCitiesLocalStorage.value.map(
+          ({ lat, lon, cityItemFullName }: CityLocalStorageItem) => {
+            return useCurrentWeatherDataForRender(lat, lon, cityItemFullName);
+          }
+        );
+
+      currentWeatherDataForRenderArr.value = await Promise.all(promises);
+
+      timerForSkeletonDelay = setTimeout(
+        () => (loadingWeatherData.value = false),
+        500
       );
 
-    currentWeatherDataForRenderArr.value = await Promise.all(promises);
+      // console.log('Promise all test')
 
-    timerForSkeletonDelay = setTimeout(
-      () => (loadingWeatherData.value = false),
-      500
-    );
+      timerLongPullOpenWeather = await setTimeout(
+        loadWeatherData,
+        3 * 60 * 1000
+      );
+    } else {
+      await new Promise((resolve) => resolve("There are no saved cities")).then(
+        () => {
+          // console.log("Promise test");
+          loadingWeatherData.value = false;
+        }
+      );
+    }
 
-    // console.log('Promise all test')
+    // console.group("Home view city block values onMounted");
+    // console.log(
+    //   "fineWeatherCitiesLocalStorage.value === ",
+    //   fineWeatherCitiesLocalStorage.value
+    // );
+    // console.log("promises", promises);
+    // console.log(
+    //   "currentWeatherDataForRenderArr.value",
+    //   currentWeatherDataForRenderArr.value
+    // );
+    // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
+    // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
+    // console.groupEnd();
 
-    timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
-  } else {
-    await new Promise((resolve) => resolve("There are no saved cities")).then(
-      () => {
-        // console.log("Promise test");
-        loadingWeatherData.value = false;
-      }
-    );
+    // loadingWeatherData.value = false;
+  } catch (error) {
+    loadingWeatherData.value = false;
+    errorResponse.value = true;
   }
-
-  // console.group("Home view city block values onMounted");
-  // console.log(
-  //   "fineWeatherCitiesLocalStorage.value === ",
-  //   fineWeatherCitiesLocalStorage.value
-  // );
-  // console.log("promises", promises);
-  // console.log(
-  //   "currentWeatherDataForRenderArr.value",
-  //   currentWeatherDataForRenderArr.value
-  // );
-  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  // console.groupEnd();
-
-  // loadingWeatherData.value = false;
 });
 
 onUnmounted(() => {
