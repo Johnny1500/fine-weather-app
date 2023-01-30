@@ -10,10 +10,14 @@
             v-if="modalActive"
             class="relative p-4 bg-white self-start mt-52 max-w-screen-md"
           >
-            <button class="absolute top-2 right-2 w-8 h-8 hover:bg-red-500 hover:text-white duration-150" @click="$emit('close-modal')">
+            <button
+              class="absolute top-2 right-2 w-8 h-8 hover:bg-red-500 hover:text-white duration-150"
+              @click="$emit('close-modal')"
+              aria-label="Close modal"
+            >
               <i class="fa fa-times fa-lg"></i>
             </button>
-            <slot></slot>           
+            <slot></slot>
           </div>
         </transition>
       </div>

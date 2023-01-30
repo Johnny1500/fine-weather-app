@@ -10,21 +10,26 @@
         class="absolute w-full h-full flex items-center justify-center px-2"
         v-show="showNavigation"
       >
-        <div class="flex flex-1">
+        <div class="flex flex-1" aria-label="Previous slide">
           <i @click="prevSlide" class="fas fa-chevron-left"></i>
         </div>
-        <div class="flex flex-1 justify-end">
+        <div class="flex flex-1 justify-end" aria-label="Next slide">
           <i @click="nextSlide" class="fas fa-chevron-right"></i>
         </div>
       </div>
     </transition>
-    <div class="absolute w-full bottom-2 flex items-center justify-center gap-3">
+    <div
+      class="absolute w-full bottom-2 flex items-center justify-center gap-3"
+    >
       <span
         v-for="(slide, index) in slideCount"
         @click="goToSlide(index)"
         :key="index"
-        :class="`${currentSlide === index ? 'bg-weather-green' : 'bg-weather-primary'}`"
+        :class="`${
+          currentSlide === index ? 'bg-weather-green' : 'bg-weather-primary'
+        }`"
         class="cursor-pointer w-5 h-5 rounded-full"
+        :aria-label="`Go to slide ${index}`"
       >
       </span>
     </div>
@@ -70,10 +75,10 @@ const prevSlide = () => {
 
 <style scoped>
 .slide-navigation-enter-active {
-  transition: opacity .5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 .slide-navigation-leave-active {
-  transition: opacity .5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 .slide-navigation-enter-from,
 .slide-navigation-leave-to {

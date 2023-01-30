@@ -8,7 +8,7 @@
         </div>
       </RouterLink>
       <div class="flex flex-1 justify-end gap-3">
-        <p class="text-2xl cursor-pointer" @click="toggleModal">About</p>
+        <p class="text-2xl cursor-pointer" @click="toggleModal" aria-label="Open modal about program">About</p>
       </div>
       <ModalInfo :modal-active="modalActive" @close-modal="toggleModal">
         <div class="text-black">

@@ -1,16 +1,17 @@
 <template>
   <div class="divide-gray-400 divide-y-2">
     <div class="relative text-2xl pb-2">
-      <h1>
+      <h2>
         {{ cityFullName }}
-      </h1>
-      <h1>
+      </h2>
+      <h2>
         {{ currentWeatherDataForRender?.dateArr[0] }}
-      </h1>
+      </h2>
       <button
         @click="handleSetItem"
         class="w-8 h-8 absolute top-1 right-1 text-xl hover:bg-weather-green hover:text-white duration-150 cursor-pointer rounded-full"
         v-if="!savedToLocalStorageCityCard"
+        aria-label="Save city to local storage"
       >
         <i class="fa-solid fa-plus"></i>
       </button>
@@ -19,6 +20,7 @@
           @click="handleCheckFullInfo"
           class="w-8 h-8 text-xl hover:bg-weather-green hover:text-white duration-150 cursor-pointer rounded-full"
           v-if="homeView"
+          aria-label="Check city's full info"
         >
           <i class="fa-solid fa-circle-info"></i>
         </button>
@@ -26,6 +28,7 @@
           @click="handleRemoveItem"
           class="w-8 h-8 text-xl hover:bg-red-500 hover:text-white duration-150 cursor-pointer rounded-full"
           v-if="savedToLocalStorageCityCard"
+          aria-label="Remove city from local storage"
         >
           <i class="fa-solid fa-trash"></i>
         </button>
