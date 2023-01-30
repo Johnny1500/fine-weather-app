@@ -119,20 +119,32 @@ onMounted(async function loadWeatherData() {
 
   fineWeatherCitiesLocalStorage.value = getFineWeatherCitiesFromLocalStorage();
 
-  const promises: Promise<CurrentWeatherDataForRender>[] =
-    fineWeatherCitiesLocalStorage.value.map(
-      ({ lat, lon, cityItemFullName }: CityLocalStorageItem) => {
-        return useCurrentWeatherDataForRender(lat, lon, cityItemFullName);
-      }
+  if (fineWeatherCitiesLocalStorage.value.length > 0) {
+    const promises: Promise<CurrentWeatherDataForRender>[] =
+      fineWeatherCitiesLocalStorage.value.map(
+        ({ lat, lon, cityItemFullName }: CityLocalStorageItem) => {
+          return useCurrentWeatherDataForRender(lat, lon, cityItemFullName);
+        }
+      );
+
+    currentWeatherDataForRenderArr.value = await Promise.all(promises);
+
+    timerForSkeletonDelay = setTimeout(
+      () => (loadingWeatherData.value = false),
+      500
     );
 
-  currentWeatherDataForRenderArr.value = await Promise.all(promises);
+    // console.log('Promise all test')
 
-  timerForSkeletonDelay = setTimeout(
-    () => (loadingWeatherData.value = false),
-    500
-  );
-  timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
+    timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
+  } else {
+    await new Promise((resolve) => resolve("There are no saved cities")).then(
+      () => {
+        // console.log("Promise test");
+        loadingWeatherData.value = false;
+      }
+    );
+  }
 
   // console.group("Home view city block values onMounted");
   // console.log(
