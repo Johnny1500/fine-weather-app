@@ -1,46 +1,31 @@
-# fine-weather-app
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+# Fine weather
+## An app for weather
+<p class="mb-4">
+            The Fine Weather allows you to track the current and future weather
+            of cities of your choosing.
+          </p>
+          <h2 class="text-2xl">How it works:</h2>
+          <ol class="list-decimal list-inside mb-4">
+            <li>
+              Search for your city by entering the name into the search bar.
+            </li>
+            <li>
+              Select a city within the results, this will take you to the
+              current weather and forecast for 5 days for your selection.
+            </li>
+            <li>
+              Track the city by clicking on the "+" button in the top right of the city's card.
+              This will save the city to view at a later time on the home page (max 3 cities).
+            </li>
+            <li>
+              If you like to view previously saved city, click on the "i" button.
+            </li>
+            <li>
+              You can browse forecast's data by clicking arrow buttons and circles at the bottom.
+            </li>           
+          </ol>
+          <h2 class="text-2xl">Removing a city</h2>
+          <p>
+            If you no longer wish to track a city, click on the trash button.
+          </p>
+            
