@@ -12,12 +12,12 @@
       </div>
       <ModalInfo :modal-active="modalActive" @close-modal="toggleModal">
         <div class="text-black">
-          <h1 class="text-2xl mb-1">About:</h1>
+          <h1 class="text-xl sm:text-2xl mb-1">About:</h1>
           <p class="mb-4">
             The Fine Weather allows you to track the current and future weather
             of cities of your choosing.
           </p>
-          <h2 class="text-2xl">How it works:</h2>
+          <h2 class="text-xl sm:text-2xl">How it works:</h2>
           <ol class="list-decimal list-inside mb-4">
             <li>
               Search for your city by entering the name into the search bar.
@@ -38,7 +38,7 @@
             </li>           
           </ol>
 
-          <h2 class="text-2xl">Removing a city</h2>
+          <h2 class="text-xl sm:text-2xl">Removing a city:</h2>
           <p>
             If you no longer wish to track a city, click on the trash button.
           </p>
