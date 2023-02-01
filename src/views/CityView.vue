@@ -131,11 +131,6 @@ const removeWeatherCityItemFromLocalStorageFromCityView = (
     cityItemFullName,
     fineWeatherCitiesLocalStorage.value
   );
-
-  console.log(
-    "fineWeatherCitiesLocalStorage.value === ",
-    fineWeatherCitiesLocalStorage.value
-  );
 };
 
 // Long-pull for open weather API
@@ -189,5 +184,3 @@ onUnmounted(() => {
   timerLongPullOpenWeather = timerForSkeletonDelay = null;
 });
 </script>
-
-<style lang="scss" scoped></style>

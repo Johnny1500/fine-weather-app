@@ -3,5 +3,3 @@
     404. Page not found.
   </p>
 </template>
-
-<script setup lang="ts"></script>

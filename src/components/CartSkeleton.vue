@@ -12,11 +12,7 @@
           <div class="w-full h-12 rounded-full bg-weather-primary"></div>
         </div>
         <div class="h-[3.8rem] rounded-full bg-weather-primary mt-5"></div>
-      </div>     
+      </div>
     </section>
   </div>
 </template>
-
-<script setup lang="ts"></script>
-
-
