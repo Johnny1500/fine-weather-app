@@ -8,7 +8,7 @@
         <transition name="modal-inner">
           <div
             v-if="modalActive"
-            class="relative p-4 bg-white self-start mt-3 weather-screen max-w-screen-md"
+            class="relative p-4 bg-white self-start mt-3 weather-modal max-w-screen-md"
           >
             <button
               class="absolute top-2 right-2 w-8 h-8 hover:bg-red-500 hover:text-white duration-150"
@@ -64,11 +64,23 @@ const props = withDefaults(
   transform: scale(0.8);
 }
 
+.weather-modal {
+  margin-top: 5vh;
+}
+
 @media only screen and (min-width: 350px) and (min-height: 800px)  {
 
-  .weather-screen {
-    margin-top: 10rem;
+  .weather-modal {
+    margin-top: 10vh;
   }
+
+}
+
+@media only screen and (min-width: 400px) and (min-height: 920px)  {
+
+.weather-modal {
+  margin-top: 30vh;
+}
 
 }
 
