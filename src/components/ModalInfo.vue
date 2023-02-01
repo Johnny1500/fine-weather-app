@@ -3,12 +3,12 @@
     <transition name="modal-outer">
       <div
         v-show="modalActive"
-        class="absolute backdrop-blur-sm z-10 w-full h-full top-0 left-0 flex justify-center bg-black bg-opacity-30 px-8"
+        class="backdrop-blur-sm z-10 w-full weather-outer-modal bg-black bg-opacity-30 px-8"
       >
         <transition name="modal-inner">
           <div
             v-if="modalActive"
-            class="relative p-4 bg-white self-start mt-3 weather-modal max-w-screen-md"
+            class="relative weather-inner-modal p-4 bg-white max-w-screen-md"
           >
             <button
               class="absolute top-2 right-2 w-8 h-8 hover:bg-red-500 hover:text-white duration-150"
@@ -49,40 +49,29 @@ const props = withDefaults(
 }
 
 .modal-inner-enter-active {
-  transition: all 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02) 0.15s;
+  transition: opacity 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02) 0.15s;
 }
 .modal-inner-leave-active {
-  transition: all 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
+  transition: opacity 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
 }
 
 .modal-inner-enter-from {
-  opacity: 0;
-  transform: scale(0.8);
+  opacity: 0;  
 }
 
-.modal-inner-leave-to {
-  transform: scale(0.8);
+.weather-outer-modal {
+  position: fixed;
+  margin: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.weather-modal {
-  margin-top: 5vh;
+.weather-inner-modal {
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%);
 }
-
-@media only screen and (min-width: 350px) and (min-height: 800px)  {
-
-  .weather-modal {
-    margin-top: 10vh;
-  }
-
-}
-
-@media only screen and (min-width: 400px) and (min-height: 920px)  {
-
-.weather-modal {
-  margin-top: 30vh;
-}
-
-}
-
 
 </style>
