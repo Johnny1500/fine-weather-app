@@ -97,10 +97,10 @@ const loadingCities = ref(false);
 const errorResponse = ref(false);
 const selectedCityKeyboard: Ref<number | null> = ref(null);
 
+// Search latitude and longitude from Rapid API on city's name
 async function searchFromGeoDB(newCityInput: string) {
   try {
-    // console.log("newCityInput", newCityInput);
-
+    
     if (newCityInput.length === 0) {
       selectedGeoDBCities.value = [];
       return;
@@ -119,8 +119,7 @@ async function searchFromGeoDB(newCityInput: string) {
     }
 
     const cities = await response.json();
-    // console.log("cities", cities);
-
+    
     selectedGeoDBCities.value = cities.data;
 
     errorResponse.value = false;
@@ -157,7 +156,6 @@ function handleClickOutside(event: MouseEvent) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  // console.log("event.key", event.key);
   if (event.key === "Enter" && selectedCityKeyboard.value !== null) {
     handleCityClick(selectedGeoDBCities.value[selectedCityKeyboard.value]);
   }
@@ -196,8 +194,6 @@ watch(cityInput, (...args) => {
   // @ts-ignore
   return searchFromGeoDBDebounced(...args);
 });
-
-// watch(selectedCityKeyboard, (value) => console.log(value));
 
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);

@@ -1,5 +1,6 @@
 import { OPEN_WEATHER_API_URL, OPEN_WEATHER_API_KEY } from "../api";
 
+// Get weather's info from Open Weather API on latitude and longitude
 export default async function useOpenWeatherData<T>(
   lat: string | undefined,
   lon: string | undefined,
@@ -28,8 +29,6 @@ export default async function useOpenWeatherData<T>(
   } catch (error) {
     console.log("error during fetch", error);
   }
-
-  // console.log("weatherData ===", weatherData);
 
   return weatherData;
 }

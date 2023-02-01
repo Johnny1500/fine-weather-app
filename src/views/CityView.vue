@@ -61,7 +61,7 @@
               />
             </p>
           </div>
-        </section>        
+        </section>
       </div>
       <p v-else class="text-xl mt-32 place-self-center">
         Error during fetch city's info. Try again later.
@@ -100,8 +100,6 @@ import CityCurrentWeatherCard from "@/components/CityCurrentWeatherCard.vue";
 
 const route = useRoute();
 
-// console.log("route.path", route.path);
-
 const lat = ref(route.query.lat);
 const lon = ref(route.query.lon);
 
@@ -122,11 +120,6 @@ const setFineWeatherCityItemToLocalStorageFromCityView = (
     cityItemFullName,
     lat.value?.toLocaleString(),
     lon.value?.toLocaleString(),
-    fineWeatherCitiesLocalStorage.value
-  );
-
-  console.log(
-    "fineWeatherCitiesLocalStorage.value === ",
     fineWeatherCitiesLocalStorage.value
   );
 };
@@ -178,32 +171,11 @@ onMounted(async function loadWeatherData() {
       }
     });
 
-    // console.group("City View values onMounted");
-    // console.log(
-    //   "currentWeatherDataForRender.value === ",
-    //   currentWeatherDataForRender.value
-    // );
-    // console.log(
-    //   "forecastWeatherDataForRender.value === ",
-    //   forecastWeatherDataForRender.value
-    // );
-    // console.log(
-    //   "fineWeatherCitiesLocalStorage.value === ",
-    //   fineWeatherCitiesLocalStorage.value
-    // );
-    // console.log(
-    //   "citySavedToLocalStorage.value === ",
-    //   citySavedToLocalStorage.value
-    // );
-    // console.groupEnd();
-
     timerForSkeletonDelay = setTimeout(
       () => (loadingWeatherData.value = false),
       500
     );
     timerLongPullOpenWeather = await setTimeout(loadWeatherData, 3 * 60 * 1000);
-
-    // loadingWeatherData.value = false;
   } catch (error) {
     loadingWeatherData.value = false;
     errorResponse.value = true;
@@ -211,20 +183,10 @@ onMounted(async function loadWeatherData() {
 });
 
 onUnmounted(() => {
-  // console.group("City View values unMounted 1");
-  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  // console.groupEnd();
-
   if (timerForSkeletonDelay) clearTimeout(timerForSkeletonDelay);
   if (timerLongPullOpenWeather) clearTimeout(timerLongPullOpenWeather);
 
   timerLongPullOpenWeather = timerForSkeletonDelay = null;
-
-  // console.group("City View values unMounted 2");
-  // console.log("timerForSkeletonDelay", timerForSkeletonDelay);
-  // console.log("timerLongPullOpenWeather", timerLongPullOpenWeather);
-  // console.groupEnd();
 });
 </script>
 

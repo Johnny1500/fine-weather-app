@@ -2,7 +2,6 @@ import useOpenWeatherData from "@/composables/useOpenWeatherData";
 import { dateAndTimeForRemote, degreesToWindDirection } from "../utility";
 
 import type { CurrentWeatherData, CurrentWeatherDataForRender } from "../interfaces";
-import type { LocationQueryValue } from "vue-router";
 
 export default async function useCurrentWeatherDataForRender(
   lat: string | undefined,
