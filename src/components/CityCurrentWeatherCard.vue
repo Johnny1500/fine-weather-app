@@ -1,6 +1,6 @@
 <template>
   <div class="divide-gray-400 divide-y-2">
-    <div class="relative text-2xl pb-2">
+    <div class="relative text-[1.4rem] pb-2">
       <h2>
         {{ cityFullName }}
       </h2>
