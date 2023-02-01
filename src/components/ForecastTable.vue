@@ -54,11 +54,4 @@ const props = withDefaults(
 );
 
 const { forecastWeatherDayDataForRender, showTitle } = toRefs(props);
-
-// console.group("ForecastTable values");
-// console.log(
-//   "forecastWeatherDayDataForRender.value",
-//   forecastWeatherDayDataForRender.value
-// );
-// console.groupEnd();
 </script>
