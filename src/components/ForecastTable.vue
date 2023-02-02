@@ -21,7 +21,7 @@
           <td class="flex items-end justify-start">
             <img
               :src="
-                getImageUrl('../src/assets/weather-pictures/', item?.picture)
+                '/weather-pictures/' + item?.picture + '.png'
               "
               alt="current weather"
               class="w-8"
@@ -41,7 +41,7 @@ import type { ForecastItemWeatherDataForRender } from "../interfaces";
 
 import { toRefs } from "vue";
 
-import { getImageUrl } from "@/utility";
+// import { getImageUrl } from "@/utility";
 
 const props = withDefaults(
   defineProps<{

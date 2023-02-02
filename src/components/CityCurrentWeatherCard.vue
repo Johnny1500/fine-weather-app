@@ -39,12 +39,7 @@
       <div class="flex flex-row items-center justify-evenly">
         <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
         <img
-          :src="
-            getImageUrl(
-              '../src/assets/weather-pictures/',
-              currentWeatherDataForRender?.picture
-            )
-          "
+          :src="'/weather-pictures/' + currentWeatherDataForRender?.picture + '.png'"
           alt="current weather"
           class="w-12"
         />
@@ -104,7 +99,7 @@ import type { CurrentWeatherDataForRender } from "../interfaces";
 
 import { ref, toRefs } from "vue";
 
-import { getImageUrl } from "@/utility";
+// import { getImageUrl } from "@/utility";
 
 const emit = defineEmits([
   "setItemToLocalStorage",
@@ -131,6 +126,8 @@ const {
   homeView,
 } = toRefs(props);
 const savedToLocalStorageCityCard = ref(savedToLocalStorage.value);
+
+const testValue = ref('../assets/weather-kind-pictures/wind.png');
 
 const handleSetItem = (): void => {
   emit("setItemToLocalStorage", cityFullName.value);

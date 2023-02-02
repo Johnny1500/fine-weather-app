@@ -76,16 +76,3 @@ export const degreesToWindDirection = function (deg: number): WindDirection {
       return "N";
   }
 };
-
-/**
- * Get an image URL.href
- * @param {string} baseUrl base path
- * @param {string} image title of the image
- * @returns {string} href of the image
- */
-export const getImageUrl = function (
-  baseUrl: string,
-  image: string = "unknown"
-): string {
-  return new URL(`${baseUrl}${image}.png`, import.meta.url).href;
-};
