@@ -39,7 +39,7 @@
       <div class="flex flex-row items-center justify-evenly">
         <p class="text-5xl">{{ currentWeatherDataForRender?.temp }}</p>
         <img
-          :src="'/weather-pictures/' + currentWeatherDataForRender?.picture + '.png'"
+          :src="`/weather-pictures/${currentWeatherDataForRender?.picture ?? 'unknown'}.png`"
           alt="current weather"
           class="w-12"
         />

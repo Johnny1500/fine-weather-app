@@ -20,9 +20,7 @@
           </td>
           <td class="flex items-end justify-start">
             <img
-              :src="
-                '/weather-pictures/' + item?.picture + '.png'
-              "
+              :src="`/weather-pictures/${item?.picture ?? 'unknown'}.png`"
               alt="current weather"
               class="w-8"
             />
