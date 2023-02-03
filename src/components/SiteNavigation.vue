@@ -2,7 +2,7 @@
   <header class="sticky z-10 top-0 bg-weather-primary shadow-lg">
     <nav class="container py-4 flex flex-col sm:flex-row items-center">
       <RouterLink :to="{ name: 'home' }">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3" aria-label="Home link">
           <img src="/images/weather-pictures/03d.png" class="w-10 h-10" />
           <p class="text-2xl">Fine Weather</p>
         </div>
