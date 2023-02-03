@@ -35,8 +35,7 @@
               }`"
               @click="handleCityClick(item)"
             >
-              {{ item["name"] }},
-              {{ item["countryCode"] }}
+              {{ item["name"] }}
             </li>
           </ul>
           <div v-else class="flex items-center justify-center pb-3">
@@ -131,9 +130,9 @@ async function searchFromGeoDB(newCityInput: string) {
 }
 
 function handleCityClick(cityObj: any) {
-  const { city, latitude, longitude, countryCode } = cityObj;
+  const { city, latitude, longitude } = cityObj;
 
-  const fullName = city + ", " + countryCode;
+  const fullName = city;
 
   router.push({
     path: `city/${city}`,
