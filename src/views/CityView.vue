@@ -30,7 +30,7 @@
         <section
           class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
         >
-          <h1 class="text-[1.4rem] pb-1">Forecast for 5 days</h1>
+          <h2 class="text-[1.4rem] pb-1">Forecast for 5 days</h2>
           <div class="hidden h-[25rem] md:block md:h-fit text-xl pt-2">
             <Carousel
               :slide-count="forecastWeatherDataForRender.slice(1)?.length"
@@ -184,3 +184,9 @@ onUnmounted(() => {
   timerLongPullOpenWeather = timerForSkeletonDelay = null;
 });
 </script>
+
+<style scoped>
+h2 {
+  font-size-adjust: 0.46;
+}
+</style>

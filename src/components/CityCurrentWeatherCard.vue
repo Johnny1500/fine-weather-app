@@ -141,3 +141,9 @@ const handleCheckFullInfo = (): void => {
   emit("checkFullInfo", cityFullName.value);
 };
 </script>
+
+<style scoped>
+h2 {
+  font-size-adjust: 0.46;
+}
+</style>
