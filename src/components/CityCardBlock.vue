@@ -7,7 +7,7 @@
           class="flex flex-col lg:flex-row items-center justify-center gap-5"
         >
           <section
-            class="min-w-[20rem] w-fit bg-stone-100 shadow-inner rounded-lg p-4"
+            class="min-w-[20rem] w-fit bg-stone-100 rounded-lg p-4 shadow-lg hover:shadow-xl"
             v-for="item in currentWeatherDataForRenderArr"
             :key="item.city_full_name"
           >

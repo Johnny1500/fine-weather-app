@@ -5,7 +5,7 @@
     <div v-if="!loadingWeatherData">
       <div v-if="!errorResponse">
         <section
-          class="bg-stone-100 shadow-inner rounded-lg p-4 divide-gray-400 divide-y-2"
+          class="bg-stone-100 rounded-lg p-4 divide-gray-400 divide-y-2 shadow-lg"
         >
           <CityCurrentWeatherCard
             :current-weather-data-for-render="currentWeatherDataForRender"
@@ -28,7 +28,7 @@
           </div>
         </section>
         <section
-          class="bg-stone-100 rounded-lg shadow-inner mt-3 p-4 divide-gray-400 divide-y-2"
+          class="bg-stone-100 rounded-lg mt-3 p-4 divide-gray-400 divide-y-2 shadow-lg"
         >
           <h2 class="text-[1.4rem] pb-1">Forecast for 5 days</h2>
           <div class="hidden h-[25rem] md:block md:h-fit text-xl pt-2">
